@@ -7,3 +7,11 @@ C:\Aplicaciones\2021\cxp\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.AssemblyInf
 C:\Aplicaciones\2021\cxp\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.csproj.CoreCompileInputs.cache
 C:\Aplicaciones\2021\cxp\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.dll
 C:\Aplicaciones\2021\cxp\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.pdb
+C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp.Model\bin\Debug\netcoreapp3.1\cxp.Model.deps.json
+C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp.Model\bin\Debug\netcoreapp3.1\cxp.Model.dll
+C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp.Model\bin\Debug\netcoreapp3.1\cxp.Model.pdb
+C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.AssemblyInfoInputs.cache
+C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.AssemblyInfo.cs
+C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.csproj.CoreCompileInputs.cache
+C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.dll
+C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.pdb
