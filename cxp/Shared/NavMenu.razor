@@ -1,32 +1,50 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">CXP</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿<header>
+    <nav class="navbar navbar-expand-sm   ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Agregar Usuario
-            </NavLink>
-        </li>
-    </ul>
-</div>
+            <img src="/img/menu.png" class="navh" />
+        </button>
 
-@code {
-    private bool collapseNavMenu = true;
+        <!-- logo -->
+        <a class="navbar-brand" href="#">
+            <img style="width: 100px;" src="/img/logo.svg" width="75" height="30" alt="">
+        </a>
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+        <!-- enlaces -->
+        <div class="collapse navbar-collapse" id="opciones">
+            <ul class="navbar-nav">
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+                <li class="nav-item">
+                    <a class="nav-link" href="">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Proveedores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Recepcion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Pedidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Pagos</a>
+                </li>
+            </ul>
+
+        </div>
+        @* <div>
+                <a class="nav-link nombre-nav" style="text-decoration: none;" href="#"></a>
+            </div>
+            <div>
+                <a href="../Login.html"  class="nav-link"><img src="../img/Vector.png"></a>
+
+            </div>*@
+        <div>
+            <a href="/Login" class="nav-link">Login</a>
+        </div>
+
+    </nav>
+</header>

@@ -9,4 +9,8 @@
     <ProjectReference Include="..\cxp.Model\cxp.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="img\" />
+  </ItemGroup>
+
 </Project>
