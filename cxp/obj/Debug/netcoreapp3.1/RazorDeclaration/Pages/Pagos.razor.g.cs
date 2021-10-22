@@ -75,6 +75,20 @@ using cxp.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Pagos.razor"
+using Model;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Pagos.razor"
+using Interfaces;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Pagos")]
     public partial class Pagos : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -83,6 +97,27 @@ using cxp.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 86 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Pagos.razor"
+       
+   
+    private IEnumerable<Pedidopagar> PPS;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            PPS = await PP.GetAllPedidopagar();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPedidoPago PP { get; set; }
     }
 }
 #pragma warning restore 1591
