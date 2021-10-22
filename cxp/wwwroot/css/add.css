@@ -42,6 +42,13 @@ input, select {
     width: 187px;
     height: 50px;
 }
+.btn-dan {
+    border-radius: 8px;
+    background-color: red;
+    color: #F3F3F3;
+    width: 187px;
+    height: 50px;
+}
 
 footer {
     background-color: black;

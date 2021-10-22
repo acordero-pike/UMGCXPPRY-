@@ -75,7 +75,22 @@ using cxp.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Abono")]
+#nullable restore
+#line 3 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Abono.razor"
+using Model;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Abono.razor"
+using Interfaces;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Abono/{Id:int}/{de:float}")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Abono/{Ids:int}")]
     public partial class Abono : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -83,6 +98,78 @@ using cxp.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 67 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Abono.razor"
+       
+    [Parameter]
+    public int id { get; set; }
+    [Parameter]
+    public float de { get; set; }
+    [Parameter]
+    public int Ids { get; set; }
+    private IEnumerable<Pedidopagar> PPS;
+
+    Abonos abon = new Abonos();
+    protected void CancelFilm()
+    {
+        NavigationManager.NavigateTo("/Pagos");
+    }
+    protected async Task SaveFilm()
+    {
+        if (abon.Tipo_C_A == null)
+
+        {
+            await js.InvokeVoidAsync("alert", "Seleccione un Tipo de Pago!"); // Alert
+        }
+        else if (abon.Cantidad_cargo_Abono > Convert.ToDecimal(de))
+        {
+            await js.InvokeVoidAsync("alert", "La cantidad Excede la Deuda , ingrese una cantida igual o menor !"); // Alert
+
+        }
+        else
+        {
+            await Ab.Savepaga(abon);
+            NavigationManager.NavigateTo("/Pagos");
+        }
+
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        if (Ids != 0)
+        {
+
+            abon = await Ab.GetDetails(Ids);
+            PPS = await ppd.GetAllPedidopagar();
+
+            foreach(var item in PPS)
+            {
+                if(item.pedido==abon.No_Factura)
+                {
+                    var  x = Convert.ToDecimal(item.deuda) + abon.Cantidad_cargo_Abono;
+                    de = (float) x;
+                }
+            }
+
+
+        }
+        else
+        {
+            abon.No_Factura = id;
+            abon.Fecha_Pago = DateTime.Now;
+        }
+
+
+    }
+
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime js { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPedidoPago ppd { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IAbono Ab { get; set; }
     }
 }
 #pragma warning restore 1591
