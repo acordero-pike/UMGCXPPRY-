@@ -45,16 +45,19 @@
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Dapper": {
+<<<<<<< HEAD
               "target": "Package",
               "version": "[2.0.90, )"
             },
             "Dapper.Logging": {
+=======
+>>>>>>> bc0660778f8cb73c085969e444c9132a42bc60d0
               "target": "Package",
-              "version": "[0.4.3, )"
+              "version": "[2.0.90, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
-              "version": "[4.8.2, )"
+              "version": "[4.8.3, )"
             }
           },
           "imports": [
@@ -72,7 +75,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.208\\RuntimeIdentifierGraph.json"
+>>>>>>> bc0660778f8cb73c085969e444c9132a42bc60d0
         }
       }
     },
@@ -126,7 +133,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.208\\RuntimeIdentifierGraph.json"
+>>>>>>> bc0660778f8cb73c085969e444c9132a42bc60d0
         }
       }
     }

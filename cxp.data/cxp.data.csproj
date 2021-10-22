@@ -6,8 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.90" />
+<<<<<<< HEAD
     <PackageReference Include="Dapper.Logging" Version="0.4.3" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+=======
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+>>>>>>> bc0660778f8cb73c085969e444c9132a42bc60d0
   </ItemGroup>
 
   <ItemGroup>

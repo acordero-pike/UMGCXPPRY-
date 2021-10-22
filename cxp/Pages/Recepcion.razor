@@ -1,0 +1,100 @@
+﻿@page "/Recepcion_Pedidos"
+@using Model
+@using Interfaces
+@inject NavigationManager uriHelper;
+@inject IRecepcion PP
+@inject IJSRuntime js
+<link href="/css/lista.css" rel="stylesheet" />
+<div class="container" style="text-align: center;">
+    @if (PPS == null)
+    {
+        <p><em>Loading...</em></p>
+
+    }
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="titulo">Recibir Pedidos</h1>
+    <br>
+    <br>
+    <br>
+
+
+
+    <div class="table-responsive">
+        <table class="table table-light table-bordered" style="text-align: center;">
+            <thead class="table" style="background-color: #021329; color: white;">
+                <tr>
+                    <th>Pedido</th>
+                    <th>Proveedor</th>
+                    <th>Deuda</th>
+                    <th>Fecha</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="lista-equipos" style="background-color:#D8D8D8; color: #000;">
+                @if (PPS == null)
+                {
+                    <tr>
+                        <td colspan="6"> Sin Datos</td>
+                    </tr>
+
+                }
+                else
+                {
+                    @foreach (var ps in PPS)
+                    {
+                        <tr>
+                            <td>@ps.pedido</td>
+                            <td>@ps.proveedor</td>
+                            <td>@ps.deuda</td>
+                            <td>@ps.Fecha</td>
+                            @if (ps.Recibido == true)
+                            {
+
+                                <td><input  class="recibido" type="button" value="recibido" disabled /></td>
+                            }
+                            else
+                            {
+                                <td>  <input class="recibir" type="button" value="Recibir" @onclick=@(e => recibir( ps.pedido)) /></td>
+                            }
+
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+
+    private IEnumerable<PedidoRecepcion> PPS;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            PPS = await PP.GetAll();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+    protected async void recibir(int id)
+    {
+
+        var confirmacion = await js.InvokeAsync<bool>("confirmar", "Recibir", "Seguro que desea Recibir el pedido?", "question");
+        if (confirmacion)
+        {
+            await PP.Recibir(id);
+
+            uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
+        }
+     
+
+
+    }
+}
