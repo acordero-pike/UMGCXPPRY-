@@ -110,13 +110,6 @@ using Interfaces;
     }
     protected async Task SaveProveedor()
     {
-        if (id == 0)
-        {
-        }
-        else
-        {
-            Proveedor = await ProveedorService.GetDetails(id);
-        }
         await ProveedorService.SaveProveedor(Proveedor);
         NavigationManager.NavigateTo("/Proveedores");
     }

@@ -76,14 +76,14 @@ using cxp.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Abono.razor"
+#line 3 "C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\Pages\Abono.razor"
 using Model;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Abono.razor"
+#line 4 "C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\Pages\Abono.razor"
 using Interfaces;
 
 #line default
@@ -99,7 +99,7 @@ using Interfaces;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 67 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Abono.razor"
+#line 67 "C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\Pages\Abono.razor"
        
     [Parameter]
     public int id { get; set; }

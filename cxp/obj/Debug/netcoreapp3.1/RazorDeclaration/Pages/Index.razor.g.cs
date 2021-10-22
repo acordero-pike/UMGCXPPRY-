@@ -76,7 +76,7 @@ using cxp.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Index.razor"
+#line 2 "C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\Pages\Index.razor"
             [Authorize]
 
 #line default

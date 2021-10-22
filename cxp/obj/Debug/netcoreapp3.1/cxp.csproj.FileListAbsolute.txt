@@ -69,10 +69,6 @@ C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1\cxp.dl
 C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1\cxp.pdb
 C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1\cxp.genruntimeconfig.cache
 <<<<<<< HEAD
-C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Pagos.razor.g.cs
-C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1\Razor\Pages\Pagos.razor.g.cs
-C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Abono.razor.g.cs
-C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1\Razor\Pages\Abono.razor.g.cs
 C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\bin\Debug\netcoreapp3.1\cxp.exe
@@ -152,3 +148,7 @@ C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1
 C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1\cxp.genruntimeconfig.cache
 =======
 >>>>>>> bc0660778f8cb73c085969e444c9132a42bc60d0
+C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\ListaPagos.razor.g.cs
+C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Login.razor.g.cs
+C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Recepcion.razor.g.cs
+C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\LoginLayout.razor.g.cs

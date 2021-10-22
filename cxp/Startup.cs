@@ -1,10 +1,9 @@
 using cxp.Data;
 using cxp.Interfaces;
 using cxp.Services;
-<<<<<<< HEAD
-=======
+
 using Microsoft.AspNetCore.Authentication.Cookies;
->>>>>>> bc0660778f8cb73c085969e444c9132a42bc60d0
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -33,15 +32,15 @@ namespace cxp
         {
            
             services.AddServerSideBlazor();
-<<<<<<< HEAD
-            services.AddSingleton<WeatherForecastService>();
+
+            
             services.AddScoped<IProveedorService, ProveedorService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
-=======
+
             services.AddScoped<IPedidoPago, PedidopagarServicecs>();
             services.AddScoped<IRecepcion, RecepcionServicio>();
             services.AddScoped<IAbono, Abonoservices>();
->>>>>>> bc0660778f8cb73c085969e444c9132a42bc60d0
+
             var sqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("SqlConnection"));
 
             services.AddSingleton(sqlConnectionConfiguration);

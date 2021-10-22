@@ -1,10 +1,6 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "mILYuAwF9Ot+SvJcTyJ/QcQsO4Y9O4evcfl5MO9UKZ6djCtx/fWFNrZOYnt3V7D7AdD5lkxC8H894N8TMVDmww==",
-=======
-  "dgSpecHash": "QahG8ER6tuHB7LTQZxqTWvnT7NguVtSDSvhRtnECbymWU3GTRIfubGp8x4AcTIcBGAsd8TfpVfcDByaNAgOU5w==",
->>>>>>> bc0660778f8cb73c085969e444c9132a42bc60d0
   "success": true,
   "projectFilePath": "C:\\Users\\pamel\\OneDrive\\Desktop\\UMGCXPPRY\\UMGCXPPRY-\\cxp.Model\\cxp.Model.csproj",
   "expectedPackageFiles": [],

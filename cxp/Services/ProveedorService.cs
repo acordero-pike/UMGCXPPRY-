@@ -35,7 +35,7 @@ namespace cxp.Services
 
         public Task<bool> SaveProveedor(proveedor prov)
         {
-            if (prov.id_Proveedor == 0)
+            if (prov.ID_Proveedor == 0)
                 return _proveedorRepository.InsertProveedor(prov);
             else
                 return _proveedorRepository.UpdateProveedor(prov);

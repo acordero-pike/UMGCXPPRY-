@@ -18,6 +18,7 @@ C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp.Model\obj\Debug\netcoreapp3.1\
 C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp.Model\bin\Debug\netcoreapp3.1\cxp.Model.deps.json
 C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp.Model\bin\Debug\netcoreapp3.1\cxp.Model.dll
 C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp.Model\bin\Debug\netcoreapp3.1\cxp.Model.pdb
+C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.csproj.AssemblyReference.cache
 C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.AssemblyInfoInputs.cache
 C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp.Model\obj\Debug\netcoreapp3.1\cxp.Model.AssemblyInfo.cs

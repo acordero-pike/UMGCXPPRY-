@@ -76,14 +76,14 @@ using cxp.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Pagos.razor"
+#line 2 "C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\Pages\Pagos.razor"
 using Model;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Pagos.razor"
+#line 3 "C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\Pages\Pagos.razor"
 using Interfaces;
 
 #line default
@@ -98,7 +98,7 @@ using Interfaces;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 86 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Pagos.razor"
+#line 86 "C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\Pages\Pagos.razor"
        
    
     private IEnumerable<Pedidopagar> PPS;

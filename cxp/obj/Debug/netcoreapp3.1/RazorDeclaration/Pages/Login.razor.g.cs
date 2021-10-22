@@ -75,44 +75,15 @@ using cxp.Shared;
 #line default
 #line hidden
 #nullable disable
-<<<<<<< HEAD:cxp/obj/Debug/netcoreapp3.1/RazorDeclaration/Pages/FetchData.razor.g.cs
-#nullable restore
-#line 3 "C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\Pages\FetchData.razor"
-using cxp.Data;
-
-#line default
-#line hidden
-#nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/fetchdata")]
-    public partial class FetchData : Microsoft.AspNetCore.Components.ComponentBase
-=======
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(LoginLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/")]
     public partial class Login : Microsoft.AspNetCore.Components.ComponentBase
->>>>>>> bc0660778f8cb73c085969e444c9132a42bc60d0:cxp/obj/Debug/netcoreapp3.1/RazorDeclaration/Pages/Login.razor.g.cs
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-<<<<<<< HEAD:cxp/obj/Debug/netcoreapp3.1/RazorDeclaration/Pages/FetchData.razor.g.cs
-#nullable restore
-#line 39 "C:\Users\pamel\OneDrive\Desktop\UMGCXPPRY\UMGCXPPRY-\cxp\Pages\FetchData.razor"
-       
-    private WeatherForecast[] forecasts;
-
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-    }
-
-#line default
-#line hidden
-#nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private WeatherForecastService ForecastService { get; set; }
-=======
->>>>>>> bc0660778f8cb73c085969e444c9132a42bc60d0:cxp/obj/Debug/netcoreapp3.1/RazorDeclaration/Pages/Login.razor.g.cs
     }
 }
 #pragma warning restore 1591

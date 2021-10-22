@@ -35,7 +35,7 @@ namespace cxp.Services
 
         public Task<bool> SaveUsuario(usuario usu)
         {
-            if (usu.Id_Usuario == 0)
+            if (usu.ID_Usuario == 0)
                 return _usuarioRepository.InsertUsuario(usu);
             else
                 return _usuarioRepository.UpdateUsuario(usu);
