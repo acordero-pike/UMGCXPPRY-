@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\albin\\Desktop\\UMG CXP PRY\\UMGCXPPRY-\\cxp.data\\cxp.data.csproj": {}
+    "C:\\Users\\pamel\\OneDrive\\Desktop\\UMGCXPPRY\\UMGCXPPRY-\\cxp.data\\cxp.data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\albin\\Desktop\\UMG CXP PRY\\UMGCXPPRY-\\cxp.data\\cxp.data.csproj": {
+    "C:\\Users\\pamel\\OneDrive\\Desktop\\UMGCXPPRY\\UMGCXPPRY-\\cxp.data\\cxp.data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\albin\\Desktop\\UMG CXP PRY\\UMGCXPPRY-\\cxp.data\\cxp.data.csproj",
+        "projectUniqueName": "C:\\Users\\pamel\\OneDrive\\Desktop\\UMGCXPPRY\\UMGCXPPRY-\\cxp.data\\cxp.data.csproj",
         "projectName": "cxp.data",
-        "projectPath": "C:\\Users\\albin\\Desktop\\UMG CXP PRY\\UMGCXPPRY-\\cxp.data\\cxp.data.csproj",
-        "packagesPath": "C:\\Users\\albin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\albin\\Desktop\\UMG CXP PRY\\UMGCXPPRY-\\cxp.data\\obj\\",
+        "projectPath": "C:\\Users\\pamel\\OneDrive\\Desktop\\UMGCXPPRY\\UMGCXPPRY-\\cxp.data\\cxp.data.csproj",
+        "packagesPath": "C:\\Users\\pamel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pamel\\OneDrive\\Desktop\\UMGCXPPRY\\UMGCXPPRY-\\cxp.data\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\albin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\pamel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -32,8 +28,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\albin\\Desktop\\UMG CXP PRY\\UMGCXPPRY-\\cxp.Model\\cxp.Model.csproj": {
-                "projectPath": "C:\\Users\\albin\\Desktop\\UMG CXP PRY\\UMGCXPPRY-\\cxp.Model\\cxp.Model.csproj"
+              "C:\\Users\\pamel\\OneDrive\\Desktop\\UMGCXPPRY\\UMGCXPPRY-\\cxp.Model\\cxp.Model.csproj": {
+                "projectPath": "C:\\Users\\pamel\\OneDrive\\Desktop\\UMGCXPPRY\\UMGCXPPRY-\\cxp.Model\\cxp.Model.csproj"
               }
             }
           }
@@ -48,6 +44,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.90, )"
+            },
             "Dapper.Logging": {
               "target": "Package",
               "version": "[0.4.3, )"
@@ -72,25 +72,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.207\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\albin\\Desktop\\UMG CXP PRY\\UMGCXPPRY-\\cxp.Model\\cxp.Model.csproj": {
+    "C:\\Users\\pamel\\OneDrive\\Desktop\\UMGCXPPRY\\UMGCXPPRY-\\cxp.Model\\cxp.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\albin\\Desktop\\UMG CXP PRY\\UMGCXPPRY-\\cxp.Model\\cxp.Model.csproj",
+        "projectUniqueName": "C:\\Users\\pamel\\OneDrive\\Desktop\\UMGCXPPRY\\UMGCXPPRY-\\cxp.Model\\cxp.Model.csproj",
         "projectName": "cxp.Model",
-        "projectPath": "C:\\Users\\albin\\Desktop\\UMG CXP PRY\\UMGCXPPRY-\\cxp.Model\\cxp.Model.csproj",
-        "packagesPath": "C:\\Users\\albin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\albin\\Desktop\\UMG CXP PRY\\UMGCXPPRY-\\cxp.Model\\obj\\",
+        "projectPath": "C:\\Users\\pamel\\OneDrive\\Desktop\\UMGCXPPRY\\UMGCXPPRY-\\cxp.Model\\cxp.Model.csproj",
+        "packagesPath": "C:\\Users\\pamel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pamel\\OneDrive\\Desktop\\UMGCXPPRY\\UMGCXPPRY-\\cxp.Model\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\albin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\pamel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -130,7 +126,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.207\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

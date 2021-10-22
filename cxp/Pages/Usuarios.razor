@@ -1,0 +1,79 @@
+﻿@page "/Usuarios"
+@using Model
+@using Interfaces
+@inject IUsuarioService UsuarioService
+<link href="/css/lista.css" rel="stylesheet" />
+@if (Usuario == null)
+{
+    <p><em>Cargando...</em></p>
+
+}
+else
+{
+
+
+    <div class="container" style="text-align: center;">
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="titulo">Lista de Usuarios</h1>
+        <h3 class="titulo"><a href="/AgregarUsuario">Agregar</a></h3>
+        <br>
+        <br>
+        <br>
+        <div class="table-responsive">
+
+            <table class="table table-light table-bordered" style="text-align: center;">
+                <thead class="table" style="background-color: #021329; color: white;">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Primer Apellido</th>
+                        <th>Segundo Apellido</th>
+                        <th>Correo Electronico</th>
+                        <th>Tipo de Usuario</th>
+                        <th>Contraseña</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-equipos" style="background-color: #D8D8D8; color: #000;">
+                    @foreach (var usuario in Usuario)
+                    {
+                    <tr>
+                        <td>@usuario.Nombre</td>
+                        <td>@usuario.Apellido_P</td>
+                        <td>@usuario.Apellido_S</td>
+                        <td>@usuario.Correo</td>
+                        <td>@usuario.Tipo_Usuario</td>
+                        <td>@usuario.Contraseña</td>
+                        <td>
+                            <a href="/AgregarUsuario">
+                                <img class="img-margin" src="/img/editar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
+                            </a>
+                            <a href="/AgregarUsuario">
+                                <img class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
+                            </a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+@code {
+
+    private IEnumerable<usuario>Usuario;
+    protected override async Task OnInitializedAsync()
+    {
+       
+        try
+        {
+            Usuario = await UsuarioService.GetAllUsuario();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+}

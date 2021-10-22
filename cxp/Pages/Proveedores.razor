@@ -1,0 +1,77 @@
+﻿@page "/Proveedores"
+@using Model
+@using Interfaces
+@inject IProveedorService ProveedorService
+<link href="/css/lista.css" rel="stylesheet" />
+@if (Proveedor == null)
+{
+    <p><em>Cargando...</em></p>
+
+}
+else
+{
+
+
+<div class="container" style="text-align: center;">
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="titulo">Lista de Proveedores</h1>
+    <h3 class="titulo"><a href="/Agregar">Agregar</a></h3>
+    <br>
+    <br>
+    <br>
+    <div class="table-responsive">
+
+        <table class="table table-light table-bordered" style="text-align: center;">
+            <thead class="table" style="background-color: #021329; color: white;">
+                <tr>
+                    <th>Proveedor</th>
+                    <th>Descripción</th>
+                    <th>Telefono</th>
+                    <th>Dirección</th>
+                    <th>Tiempo en días</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="lista-equipos" style="background-color: #D8D8D8; color: #000;">
+                @foreach (var proveedor in Proveedor)
+                {
+                <tr>
+                    <td>@proveedor.Nombre</td>
+                    <td>@proveedor.Descripcion</td>
+                    <td>@proveedor.Direccion</td>
+                    <td>@proveedor.Telefono</td>
+                    <td>@proveedor.Tiempo</td>
+                    <td>
+                        <a href="/Agregar">
+                            <img class="img-margin" src="/img/editar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
+                        </a>
+                        <a href="/Agregar">
+                            <img class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+}
+@code {
+
+    private IEnumerable<proveedor> Proveedor;
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            Proveedor = await ProveedorService.GetAllProveedor();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+}

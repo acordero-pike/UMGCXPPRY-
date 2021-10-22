@@ -1,4 +1,6 @@
 using cxp.Data;
+using cxp.Interfaces;
+using cxp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +30,8 @@ namespace cxp
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-
+            services.AddScoped<IProveedorService, ProveedorService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
             var sqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("SqlConnection"));
 
             services.AddSingleton(sqlConnectionConfiguration);
