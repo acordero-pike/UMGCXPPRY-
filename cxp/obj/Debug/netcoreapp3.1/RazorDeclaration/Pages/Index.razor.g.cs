@@ -75,13 +75,6 @@ using cxp.Shared;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 2 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Index.razor"
-            [Authorize]
-
-#line default
-#line hidden
-#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Menu")]
     public partial class Index : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -90,6 +83,24 @@ using cxp.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 55 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Index.razor"
+ 
+
+
+    protected override async Task OnInitializedAsync()
+    {
+       
+    }
+
+    
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime js { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager uriHelper { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -75,73 +75,15 @@ using cxp.Shared;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 2 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Recepcion.razor"
-using Model;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Recepcion.razor"
-using Interfaces;
-
-#line default
-#line hidden
-#nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Recepcion_Pedidos")]
-    public partial class Recepcion : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(LoginLayout))]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/problema")]
+    public partial class Component : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 72 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Recepcion.razor"
-       
-
-    private IEnumerable<PedidoRecepcion> PPS;
-    protected override async Task OnInitializedAsync()
-    {
-
-
-
-
-
-
-        try
-        {
-            PPS = await PP.GetAll();
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-       
-
-    }
-    protected async void recibir(int id)
-    {
-
-        var confirmacion = await js.InvokeAsync<bool>("confirmar", "Recibir", "Seguro que desea Recibir el pedido?", "question");
-        if (confirmacion)
-        {
-            await PP.Recibir(id);
-
-            uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
-        }
-
-
-
-    }
-
-#line default
-#line hidden
-#nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime js { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IRecepcion PP { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager uriHelper { get; set; }
     }
 }
 #pragma warning restore 1591

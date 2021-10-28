@@ -75,6 +75,20 @@ using cxp.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Login.razor"
+using cxp.Interfaces;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Login.razor"
+using cxp.Model;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(LoginLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/")]
     public partial class Login : Microsoft.AspNetCore.Components.ComponentBase
@@ -84,6 +98,41 @@ using cxp.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 49 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Login.razor"
+       
+    private bool _isVisible = false;
+    usuario us = new usuario();
+    protected async void log()
+    {
+
+        var res = await LS.OnPostAsync(us.email, us.password);
+        if (res.Count()>0)
+        {
+
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "login", res.First().id_usuario
+            );
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "name", res.First().nombre +" "+ res.First().apellido           );
+
+            uriHelper.NavigateTo("/Menu", forceLoad: true);
+
+        }
+        else
+        {
+            _isVisible = true;
+            StateHasChanged();
+
+
+        }
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ILogin LS { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager uriHelper { get; set; }
     }
 }
 #pragma warning restore 1591

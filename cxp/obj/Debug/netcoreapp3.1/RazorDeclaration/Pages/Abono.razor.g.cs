@@ -99,8 +99,9 @@ using Interfaces;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 67 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Abono.razor"
+#line 68 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\Abono.razor"
        
+ 
     [Parameter]
     public int id { get; set; }
     [Parameter]
@@ -135,18 +136,20 @@ using Interfaces;
     }
     protected override async Task OnInitializedAsync()
     {
+       
+
         if (Ids != 0)
         {
 
             abon = await Ab.GetDetails(Ids);
             PPS = await ppd.GetAllPedidopagar();
 
-            foreach(var item in PPS)
+            foreach (var item in PPS)
             {
-                if(item.pedido==abon.No_Factura)
+                if (item.pedido == abon.No_Factura)
                 {
-                    var  x = Convert.ToDecimal(item.deuda) + abon.Cantidad_cargo_Abono;
-                    de = (float) x;
+                    var x = Convert.ToDecimal(item.deuda) + abon.Cantidad_cargo_Abono;
+                    de = (float)x;
                 }
             }
 
@@ -158,7 +161,7 @@ using Interfaces;
             abon.Fecha_Pago = DateTime.Now;
         }
 
-
+       
     }
 
 

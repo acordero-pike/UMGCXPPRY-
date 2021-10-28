@@ -82,6 +82,47 @@ using cxp.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 84 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Shared\MainLayout.razor"
+ 
+    private bool _isVisible = true;
+    private string data;
+    protected override async Task OnInitializedAsync()
+    {
+
+        namea();
+
+    }
+
+    protected async void namea()
+    {
+        string x = await js.InvokeAsync<string>("localStorage.getItem", "name");
+        if (x != null)
+        {
+            _isVisible = false;
+            data = x;
+            StateHasChanged();
+        }
+        else
+
+        {
+            uriHelper.NavigateTo("/problema", forceLoad: true);
+        }
+    }
+    protected async void logout()
+    {
+        await js.InvokeAsync<string>("localStorage.removeItem", "login");
+        await js.InvokeAsync<string>("localStorage.removeItem", "name");
+        uriHelper.NavigateTo("/", forceLoad: true);
+
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime js { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager uriHelper { get; set; }
     }
 }
 #pragma warning restore 1591
