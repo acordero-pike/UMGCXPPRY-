@@ -58,6 +58,7 @@ footer {
 #editar:hover {
     cursor: pointer;
 }
+
 .recibir,.recibido
 {
     color:white;
@@ -70,3 +71,4 @@ footer {
 .recibido {
     background-color: red;
 }
+

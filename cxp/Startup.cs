@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace cxp
 {
     public class Startup
@@ -30,9 +31,16 @@ namespace cxp
         {
            
             services.AddServerSideBlazor();
+
+            
+            services.AddScoped<IProductoService, ProductoService>();
+            services.AddScoped<ITipoProductoService, TipoProductoService>();
+
+
             services.AddScoped<IPedidoPago, PedidopagarServicecs>();
             services.AddScoped<IRecepcion, RecepcionServicio>();
             services.AddScoped<IAbono, Abonoservices>();
+
             var sqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("SqlConnection"));
 
             services.AddSingleton(sqlConnectionConfiguration);

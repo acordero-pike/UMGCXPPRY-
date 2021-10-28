@@ -1,0 +1,96 @@
+﻿@page "/AgregarProducto"
+@page "/AgregarProducto/{Id:int}"
+@using Model
+@using Interfaces
+@inject IProductoService ProductoService
+@inject NavigationManager NavigationManager
+@inject ITipoProductoService TipoProductoService
+    <link href="css/add.css" rel="stylesheet" />
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="titulo">Agregar pago</h1>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="input-group mb-3">
+            <input type="text" @bind="Producto.NombreP" class="form-control" id="nombre" aria-describedby="inputGroup-sizing-default" placeholder="Nombre de Producto:" required>
+        </div>
+        <div class="input-group mb-3">
+            <select @bind="Producto.IDTipoProducto" class="form-control" id="IDTipoProducto" aria-describedby="inputGroup-sizing-default" placeholder="Tipo de Producto" required>
+                @if (Producto?.IDTipoProducto != null)
+                {
+                    <option value="">Tipo de producto:</option>
+                    @foreach (var item in TipoProducto)
+                    {
+
+                        <option value="@item.IDTipoProducto.ToString()">@item.NombreProducto</option>
+                    }}
+            </select>
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-addon">Precio</span>
+            <input type="number" @bind="Producto.Precio" class="form-control" id="precio" aria-describedby="inputGroup-sizing-default" required>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-addon">Stock</span>
+            <input type="number" @bind="Producto.Stock" class="form-control" id="stock" aria-describedby="inputGroup-sizing-default" >
+        </div>
+
+        <div class="alert alert-danger" id="alert" role="alert" style="display: none;">
+            Todos los campos son necesarios!
+        </div>
+
+
+        <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
+            <button type="button" class="btn" id="agregar" @onclick="SaveProducto">Agregar</button>
+            <button type="button" class="btn" id="cancelar" @onclick="CancelProducto">Cancelar</button>
+        </div>
+
+    </div>
+
+
+
+        @code {
+            [Parameter]
+            public int Id { get; set; }
+            Producto Producto = new Producto();
+            protected void CancelProducto()
+            {
+                NavigationManager.NavigateTo("/Producto");
+            }
+            protected async Task SaveProducto()
+            {
+                await ProductoService.SaveProducto(Producto);
+                NavigationManager.NavigateTo("/Producto");
+            }
+
+
+            public List<TipoProducto> TipoProducto { get; set; } = new List<TipoProducto>();
+            protected override async Task OnInitializedAsync()
+
+            {
+                if (Id == 0)
+                {
+                  
+                }
+                else
+                {
+                    Producto = await ProductoService.GetProductoDetails(Id);
+                }
+
+
+                try
+                {
+                    TipoProducto = (await TipoProductoService.GetAllTipoProducto()).ToList();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
