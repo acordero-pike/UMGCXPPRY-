@@ -74,6 +74,12 @@
     private IEnumerable<PedidoRecepcion> PPS;
     protected override async Task OnInitializedAsync()
     {
+
+
+
+
+
+
         try
         {
             PPS = await PP.GetAll();
@@ -82,6 +88,8 @@
         {
             throw;
         }
+       
+
     }
     protected async void recibir(int id)
     {
@@ -93,7 +101,7 @@
 
             uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
         }
-     
+
 
 
     }

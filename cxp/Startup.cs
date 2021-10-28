@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,13 +40,21 @@ namespace cxp
 
             services.AddScoped<IPedidoPago, PedidopagarServicecs>();
             services.AddScoped<IRecepcion, RecepcionServicio>();
+    
+            services.AddScoped<ILogin, LoginService>();
             services.AddScoped<IAbono, Abonoservices>();
 
             var sqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("SqlConnection"));
 
             services.AddSingleton(sqlConnectionConfiguration);
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/"); //creamos un esquema  de autentificacion por cookies con un esquema default 
-            services.AddRazorPages();
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+            services.AddAuthentication(
+                CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(); services.AddRazorPages();
 
         }
 
@@ -59,13 +68,18 @@ namespace cxp
             else
             {
                 app.UseExceptionHandler("/Error");
+                app.UseHsts();
             }
-
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-             
             app.UseRouting();
-          
+            // ******
+            // BLAZOR COOKIE Auth Code (begin)
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
+            app.UseAuthentication();
+
 
             app.UseEndpoints(endpoints =>
             {
