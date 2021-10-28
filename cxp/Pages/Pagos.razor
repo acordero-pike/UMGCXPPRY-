@@ -1,0 +1,102 @@
+﻿@page "/Pagos"
+@using Model
+@using Interfaces
+@inject IPedidoPago  PP
+<link href="/css/lista.css" rel="stylesheet" />
+<div class="container" style="text-align: center;">
+    @if (PPS == null)
+    {
+        <p><em>Loading...</em></p>
+
+    }
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="titulo">Generar Pagos</h1>
+    <br>
+    <br>
+    <br>
+
+
+
+    <div class="table-responsive">
+        <table class="table table-light table-bordered" style="text-align: center;">
+            <thead class="table" style="background-color: #021329; color: white;">
+                <tr>
+                    <th>Pedido</th>
+                    <th>Proveedor</th>
+                    <th>Deuda</th>
+                    <th>Dias Restantes para Pagar</th>
+                    <th> Fecha Maxima de Pago</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody id="lista-equipos" style="background-color:#D8D8D8; color: #000;">
+                @if (PPS == null)
+                {
+                    <tr>
+                        <td colspan="6"> Sin Datos</td>
+                    </tr>
+
+                }
+                else
+                {
+                    @foreach (var ps in PPS)
+                    {
+            <tr>
+                 
+
+                @if (ps.deuda == 0)
+                {
+                    <td>@ps.pedido</td>
+                    <td>@ps.proveedor</td>
+                    <td>Pagado</td>
+                    <td>Deuda Ya Cancelada</td>
+                    <td>@ps.Fecha_Max.ToShortDateString()</td>
+
+                    <td>
+                        <a href="/ListaPagos/@ps.pedido"><button style="background-color: #147BC6; width: 50%;">Lista Pagos</button></a>
+
+                        <a href="/Abono/@ps.pedido/@ps.deuda" disabled><button style="background-color: #4A9348; width: 50%;" disabled>Pagar</button></a>
+                    </td>
+                }
+                else
+                {
+                    <td>@ps.pedido</td>
+                    <td>@ps.proveedor</td>
+                    <td>@ps.deuda</td>
+                    <td>@ps.dias_R</td>
+                    <td>@ps.Fecha_Max.ToShortDateString()</td>
+
+                    <td>
+                        <a href="/ListaPagos/@ps.pedido"><button style="background-color: #147BC6; width: 50%;">Lista Pagos</button></a>
+
+                        <a href="/Abono/@ps.pedido/@ps.deuda"><button style="background-color: #4A9348; width: 50%;">Pagar</button></a>
+                    </td>
+                }
+            </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+   
+    private IEnumerable<Pedidopagar> PPS;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            PPS = await PP.GetAllPedidopagar();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+}

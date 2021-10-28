@@ -1,0 +1,95 @@
+﻿@page "/TipoProducto"
+@using Model
+@using Interfaces
+@inject ITipoProductoService TipoProductoService
+@inject IJSRuntime js
+@inject NavigationManager Nav
+
+<link href="/css/lista.css" rel="stylesheet" />
+
+@if (TipoProductos == null)
+{
+    <p><em>Loading...</em></p>
+
+}
+else
+{
+
+
+    <div class="container" style="
+    text-align: center;
+">
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="titulo">Tipo de Producto</h1>
+        <br>
+        <a href="/AgregarTipoProducto"><i>Agregar Tipo de Producto</i></a>
+        <br>
+        <br>
+
+
+
+        <div class="table-responsive">
+
+            <table class="table table-light table-bordered" style="text-align: center;">
+                <thead class="table" style="background-color: #021329; color: white;">
+                    <tr>
+
+                        <th>Nombre Tipo de Producto</th>
+
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="lista-equipos" style="background-color:#D8D8D8; color: #000;">
+                    @foreach (var tipoProducto in TipoProductos)
+                    {
+                    <tr>
+
+                        <td>@tipoProducto.NombreProducto</td>
+                        <td><a href="/AgregarTipoProducto/@tipoProducto.IDTipoProducto"><img src="/img/editar.png" height="25" width="25" /></a></td>
+                        <td><button><img @onclick=@(e => dele( tipoProducto.IDTipoProducto)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;" /></button></td>
+                    </tr>
+                    }
+
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @code {
+
+        private IEnumerable<TipoProducto> TipoProductos;
+        protected override async Task OnInitializedAsync()
+        {
+
+            try
+            {
+                TipoProductos = await TipoProductoService.GetAllTipoProducto();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        protected async void dele(int id)
+        {
+
+            var confirmacion = await js.InvokeAsync<bool>("confirmar", "Eliminar", "Seguro que desea Eliminar el Pago?", "question");
+            if (confirmacion)
+            {
+                await TipoProductoService.DeleteTipoProducto(id);
+
+                Nav.NavigateTo(Nav.Uri, forceLoad: true);
+            }
+
+
+
+        }
+    }
+
+}
