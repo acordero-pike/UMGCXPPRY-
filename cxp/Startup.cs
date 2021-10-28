@@ -33,6 +33,9 @@ namespace cxp
         {
            
             services.AddServerSideBlazor();
+          
+            services.AddScoped<IProductoService, ProductoService>();
+            services.AddScoped<ITipoProductoService, TipoProductoService>();
 
             
             services.AddScoped<IProveedorService, ProveedorService>();
@@ -89,3 +92,4 @@ namespace cxp
         }
     }
 }
+
