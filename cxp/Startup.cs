@@ -1,9 +1,9 @@
 using cxp.Data;
 using cxp.Interfaces;
 using cxp.Services;
+
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
-using System.Net.Http;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -33,14 +33,17 @@ namespace cxp
         {
            
             services.AddServerSideBlazor();
+
+            
+            services.AddScoped<IProveedorService, ProveedorService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+
             services.AddScoped<IPedidoPago, PedidopagarServicecs>();
             services.AddScoped<IRecepcion, RecepcionServicio>();
-        services.AddHttpContextAccessor();
-            services.AddScoped<HttpContextAccessor>();
-            services.AddHttpClient();
-            services.AddScoped<HttpClient>();
+    
             services.AddScoped<ILogin, LoginService>();
             services.AddScoped<IAbono, Abonoservices>();
+
             var sqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("SqlConnection"));
 
             services.AddSingleton(sqlConnectionConfiguration);

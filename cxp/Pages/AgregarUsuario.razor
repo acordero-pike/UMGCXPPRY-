@@ -1,0 +1,82 @@
+﻿@page "/AgregarUsuario"
+@page "/AgregarUsuario/{id:int}"
+@using Model
+@using Interfaces
+@inject IUsuarioService UsuarioService
+@inject NavigationManager NavigationManager
+<link href="/css/add.css" rel="stylesheet" />
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="titulo">Agregar Usuario</h1>
+    <br>
+    <br>
+
+
+
+
+    <div class="input-group mb-3">
+        <input type="text" @bind="Usuario.Nombre" class="form-control" id="nombre" aria-describedby="inputGroup-sizing-default" placeholder="Nombre usuario" required>
+    </div>
+    <div class="input-group mb-3">
+        <input type="text" @bind="Usuario.Apellido_P" class="form-control" id="apellido" aria-describedby="inputGroup-sizing-default" placeholder="Primer Apellido" required>
+    </div>
+    <div class="input-group mb-3">
+        <input type="text" @bind="Usuario.Apellido_S" class="form-control" id="apellido2" aria-describedby="inputGroup-sizing-default" placeholder="Segundo Apellido" required>
+    </div>
+    <div class="input-group mb-3">
+        <input type="text" @bind="Usuario.Correo" class="form-control" id="correo" aria-describedby="inputGroup-sizing-default" placeholder="Correo Electronico" required>
+    </div>
+    <div class="input-group mb-3">
+        <select type="text" @bind="Usuario.Tipo_Usuario" class="form-control" id="Tipo_Usuario" aria-describedby="inputGroup-sizing-default" placeholder="Tipo usuario" required>
+            <option value="">--- Seleccionar tipo de usuario ---</option>
+            <option value="Receptor Pagador">Receptor Pagador</option>
+            <option value="Administrador">Administrador</option>
+            <option value="Bodega">Bodega</option>
+        </select>
+    </div>
+    <div class="input-group mb-3">
+        <input type="text" @bind="Usuario.Contraseña" class="form-control" id="contraseña" aria-describedby="inputGroup-sizing-default" placeholder="Contraseña" required>
+    </div>
+    <div class="alert alert-danger" id="alert" role="alert" style="display: none;">
+        Todos los campos son necesarios!
+    </div>
+
+    <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
+        <button type="button" class="btn" id="agregar" @onclick="SaveUsuario">Agregar</button>
+        <button type="button" class="btn" id="cancelar" @onclick="CancelUsuario">Cancelar</button>
+    </div>
+
+</div>
+
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    usuario Usuario = new usuario();
+    protected void CancelUsuario()
+    {
+        NavigationManager.NavigateTo("/Usuarios");
+    }
+    protected async Task SaveUsuario()
+    {
+        await UsuarioService.SaveUsuario(Usuario);
+        NavigationManager.NavigateTo("/Usuarios");
+    }
+    protected override async Task OnInitializedAsync()
+
+    {
+        if (id == 0)
+        {
+
+        }
+        else
+        {
+            Usuario = await UsuarioService.GetDetails(id);
+        }
+
+
+    }
+}
