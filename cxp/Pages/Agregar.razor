@@ -1,5 +1,5 @@
 ﻿@page "/Agregar"
-@page "/Agregar/{Id:int}"
+@page "/Agregar/{id:int}"
 @using Model
 @using Interfaces
 @inject IProveedorService ProveedorService
@@ -27,9 +27,11 @@
         <input type="text" @bind="Proveedor.Direccion" class="form-control" id="apellido2" aria-describedby="inputGroup-sizing-default" placeholder="Dirección" required>
     </div>
     <div class="input-group mb-3">
-        <input type="text" class="form-control" id="telefono" @bind="Proveedor.Telefono"  aria-describedby="inputGroup-sizing-default" placeholder="Telefono" required>
+        <span class="input-group-addon">Telefono </span>
+        <input type="number" class="form-control" id="telefono" @bind="Proveedor.Telefono" aria-describedby="inputGroup-sizing-default" placeholder="Telefono" required>
     </div>
     <div class="input-group mb-3">
+        <span class="input-group-addon">Tiempo de Crédito </span>
         <input type="text" class="form-control" id="Tiempo" @bind="Proveedor.Tiempo" aria-describedby="inputGroup-sizing-default" placeholder="Tiempo de crédito" required>
     </div>
     <div class="alert alert-danger" id="alert" role="alert" style="display: none;">
@@ -45,18 +47,30 @@
 
 
 @code {
-    [Parameter]
-    public int id { get; set; }
-    proveedor Proveedor = new proveedor();
-    protected void CancelProveedor()
+        [Parameter]
+        public int id { get; set; }
+        proveedor Proveedor = new proveedor();
+        protected void CancelProveedor()
+        {
+            NavigationManager.NavigateTo("/Proveedores");
+        }
+        protected async Task SaveProveedor()
+        {
+            await ProveedorService.SaveProveedor(Proveedor);
+            NavigationManager.NavigateTo("/Proveedores");
+        }
+    protected override async Task OnInitializedAsync()
+
     {
-        NavigationManager.NavigateTo("/Proveedores");
-    }
-    protected async Task SaveProveedor()
-    {
-        await ProveedorService.SaveProveedor(Proveedor);
-        NavigationManager.NavigateTo("/Proveedores");
-    }
+        if (id == 0)
+        {
+
+        }
+        else
+        {
+            Proveedor = await ProveedorService.GetDetails(id);
+        }
 
 
+    }
 }

@@ -33,7 +33,7 @@ namespace cxp.Data.Dapper.Repositories
         public async Task<IEnumerable<usuario>> GetAllUsuario()
         {
             var db = dbConnection();
-            var sql = @"SELECT Nombre, Apellido_P, Apellido_S, Correo, Tipo_Usuario, Contraseña
+            var sql = @"SELECT ID_Usuario, Nombre, Apellido_P, Apellido_S, Correo, Tipo_Usuario, Contraseña
                         FROM Usuario ";
             return await db.QueryAsync<usuario>(sql.ToString(), new { });
         }
@@ -41,7 +41,7 @@ namespace cxp.Data.Dapper.Repositories
         public async Task<usuario> GetUsuarioDetails(int id)
         {
             var db = dbConnection();
-            var sql = @"SELECT Nombre, Apellido_P, Apellido_S, Correo, Tipo_Usuario, Contraseña 
+            var sql = @"SELECT ID_Usuario, Nombre, Apellido_P, Apellido_S, Correo, Tipo_Usuario, Contraseña 
                         FROM Usuario 
                         WHERE ID_Usuario = @id";
             return await db.QueryFirstOrDefaultAsync<usuario>(sql.ToString(),
@@ -74,7 +74,7 @@ namespace cxp.Data.Dapper.Repositories
                             Correo = @Correo,
                             Tipo_Usuario = @Tipo_Usuario,
                             Contraseña = @Contraseña
-                        WHERE ID_Usuario = @id";
+                        WHERE ID_Usuario = @ID_Usuario";
             var result = await db.ExecuteAsync(sql.ToString(),
                 new { usu.Nombre, usu.Apellido_P, usu.Apellido_S, usu.Correo, usu.Tipo_Usuario, usu.Contraseña, usu.ID_Usuario});
             return result > 0;

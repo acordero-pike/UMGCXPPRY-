@@ -33,7 +33,7 @@ namespace cxp.Data.Dapper.Repositories
         public async Task<IEnumerable<proveedor>> GetAllProveedor()
         {
             var db = dbConnection();
-            var sql = @"SELECT Nombre, Descripcion, Direccion, Telefono, Tiempo
+            var sql = @"SELECT ID_Proveedor, Nombre, Descripcion, Direccion, Telefono, Tiempo
                         FROM Proveedor ";
             return await db.QueryAsync<proveedor>(sql.ToString(), new { });
         }
@@ -41,7 +41,7 @@ namespace cxp.Data.Dapper.Repositories
         public async Task<proveedor> GetProveedorDetails(int id)
         {
             var db = dbConnection();
-            var sql = @"SELECT Nombre, Descripcion, Direccion, Telefono, Tiempo 
+            var sql = @"SELECT ID_Proveedor, Nombre, Descripcion, Direccion, Telefono, Tiempo 
                         FROM Proveedor 
                         WHERE ID_Proveedor = @id";
             return await db.QueryFirstOrDefaultAsync<proveedor>(sql.ToString(),

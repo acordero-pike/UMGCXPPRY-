@@ -1,5 +1,5 @@
 ﻿@page "/AgregarUsuario"
-@page "/AgregarUsuario/{Id:int}"
+@page "/AgregarUsuario/{id:int}"
 @using Model
 @using Interfaces
 @inject IUsuarioService UsuarioService
@@ -30,7 +30,12 @@
         <input type="text" @bind="Usuario.Correo" class="form-control" id="correo" aria-describedby="inputGroup-sizing-default" placeholder="Correo Electronico" required>
     </div>
     <div class="input-group mb-3">
-        <input type="text" @bind="Usuario.Tipo_Usuario" class="form-control" id="tipo" aria-describedby="inputGroup-sizing-default" placeholder="Tipo de usuario" required>
+        <select type="text" @bind="Usuario.Tipo_Usuario" class="form-control" id="Tipo_Usuario" aria-describedby="inputGroup-sizing-default" placeholder="Tipo usuario" required>
+            <option value="">--- Seleccionar tipo de usuario ---</option>
+            <option value="Receptor Pagador">Receptor Pagador</option>
+            <option value="Administrador">Administrador</option>
+            <option value="Bodega">Bodega</option>
+        </select>
     </div>
     <div class="input-group mb-3">
         <input type="text" @bind="Usuario.Contraseña" class="form-control" id="contraseña" aria-describedby="inputGroup-sizing-default" placeholder="Contraseña" required>
@@ -59,5 +64,19 @@
     {
         await UsuarioService.SaveUsuario(Usuario);
         NavigationManager.NavigateTo("/Usuarios");
+    }
+    protected override async Task OnInitializedAsync()
+
+    {
+        if (id == 0)
+        {
+
+        }
+        else
+        {
+            Usuario = await UsuarioService.GetDetails(id);
+        }
+
+
     }
 }

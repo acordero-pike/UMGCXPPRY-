@@ -2,6 +2,8 @@
 @using Model
 @using Interfaces
 @inject IUsuarioService UsuarioService
+@inject IJSRuntime js
+@inject NavigationManager uriHelper;
 <link href="/css/lista.css" rel="stylesheet" />
 @if (Usuario == null)
 {
@@ -39,22 +41,22 @@ else
                 <tbody id="lista-equipos" style="background-color: #D8D8D8; color: #000;">
                     @foreach (var usuario in Usuario)
                     {
-                    <tr>
-                        <td>@usuario.Nombre</td>
-                        <td>@usuario.Apellido_P</td>
-                        <td>@usuario.Apellido_S</td>
-                        <td>@usuario.Correo</td>
-                        <td>@usuario.Tipo_Usuario</td>
-                        <td>@usuario.Contraseña</td>
-                        <td>
-                            <a href="/AgregarUsuario">
-                                <img class="img-margin" src="/img/editar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
-                            </a>
-                            <a href="/AgregarUsuario">
-                                <img class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
-                            </a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>@usuario.Nombre</td>
+                            <td>@usuario.Apellido_P</td>
+                            <td>@usuario.Apellido_S</td>
+                            <td>@usuario.Correo</td>
+                            <td>@usuario.Tipo_Usuario</td>
+                            <td>@usuario.Contraseña</td>
+                            <td>
+                                <a href="/AgregarUsuario/@usuario.ID_Usuario">
+                                    <img class="img-margin" src="/img/editar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
+                                </a>
+
+                                <img @onclick=@(e => dtl( usuario.ID_Usuario)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
+
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -63,10 +65,10 @@ else
 }
 @code {
 
-    private IEnumerable<usuario>Usuario;
+    private IEnumerable<usuario> Usuario;
     protected override async Task OnInitializedAsync()
     {
-       
+
         try
         {
             Usuario = await UsuarioService.GetAllUsuario();
@@ -75,5 +77,19 @@ else
         {
             throw;
         }
+    }
+    protected async void dtl(int id)
+    {
+
+        var confirmacion = await js.InvokeAsync<bool>("confirmar", "Eliminar", "¿Seguro que desea eliminar el Proveedor?", "question");
+        if (confirmacion)
+        {
+            await UsuarioService.DeleteUsuario(id);
+
+            uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
+        }
+
+
+
     }
 }
