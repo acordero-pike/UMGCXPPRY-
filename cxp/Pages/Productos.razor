@@ -1,4 +1,6 @@
 ﻿@page "/Producto"
+@layout Bodega;
+
 @using Model
 @using Interfaces
 @inject IProductoService ProductoService
@@ -46,18 +48,29 @@ else
                     </tr>
                 </thead>
                 <tbody id="lista-equipos" style="background-color:#D8D8D8; color: #000;">
-                    @foreach (var producto in Producto)
+                    @if (Producto.Count() < 1)
                     {
-                    <tr>
-                        <td>@producto.NombreP</td>
-                        <td>@producto.IDTipoProducto</td>
-                        <td>@producto.Stock</td>
-                        <td>Q. @producto.Precio</td>
+                        <tr>
+                            <td colspan="6">    SIN DATOS CARGADOS </td>
+                        </tr>
 
-                        <td><a href="/AgregarProducto/@producto.IDProducto"><img src="/img/editar.png" height="25" width="25" /></a></td>
-                        <td><button><img @onclick=@(e => delete( producto.IDProducto)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;" /></button></td>
-                    </tr>
                     }
+                    else
+                    {
+                        @foreach (var producto in Producto)
+                        {
+                            <tr>
+                                <td>@producto.NombreP</td>
+                                <td>@producto.IDTipoProducto</td>
+                                <td>@producto.Stock</td>
+                                <td>Q. @producto.Precio</td>
+
+                                <td><a href="/AgregarProducto/@producto.IDProducto"><img src="/img/editar.png" height="25" width="25" /></a></td>
+                                <td><button><img @onclick=@(e => delete( producto.IDProducto)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;" /></button></td>
+                            </tr>
+                        }
+                    }
+
 
 
 

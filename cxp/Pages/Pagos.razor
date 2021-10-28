@@ -1,4 +1,6 @@
 ﻿@page "/Pagos"
+@layout Receptor_pagador;
+
 @using Model
 @using Interfaces
 @inject IPedidoPago  PP
@@ -45,38 +47,38 @@
                 {
                     @foreach (var ps in PPS)
                     {
-            <tr>
-                 
+                        <tr>
 
-                @if (ps.deuda == 0)
-                {
-                    <td>@ps.pedido</td>
-                    <td>@ps.proveedor</td>
-                    <td>Pagado</td>
-                    <td>Deuda Ya Cancelada</td>
-                    <td>@ps.Fecha_Max.ToShortDateString()</td>
 
-                    <td>
-                        <a href="/ListaPagos/@ps.pedido"><button style="background-color: #147BC6; width: 50%;">Lista Pagos</button></a>
+                            @if (ps.deuda == 0)
+                            {
+                                <td>@ps.pedido</td>
+                                <td>@ps.proveedor</td>
+                                <td>Pagado</td>
+                                <td>Deuda Ya Cancelada</td>
+                                <td>@ps.Fecha_Max.ToShortDateString()</td>
 
-                        <a href="/Abono/@ps.pedido/@ps.deuda" disabled><button style="background-color: #4A9348; width: 50%;" disabled>Pagar</button></a>
-                    </td>
-                }
-                else
-                {
-                    <td>@ps.pedido</td>
-                    <td>@ps.proveedor</td>
-                    <td>@ps.deuda</td>
-                    <td>@ps.dias_R</td>
-                    <td>@ps.Fecha_Max.ToShortDateString()</td>
+                                <td>
+                                    <a href="/ListaPagos/@ps.pedido"><button style="background-color: #147BC6; width: 50%;">Lista Pagos</button></a>
 
-                    <td>
-                        <a href="/ListaPagos/@ps.pedido"><button style="background-color: #147BC6; width: 50%;">Lista Pagos</button></a>
+                                    <a href="/Abono/@ps.pedido/@ps.deuda" disabled><button style="background-color: #4A9348; width: 50%;" disabled>Pagar</button></a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>@ps.pedido</td>
+                                <td>@ps.proveedor</td>
+                                <td>@ps.deuda</td>
+                                <td>@ps.dias_R</td>
+                                <td>@ps.Fecha_Max.ToShortDateString()</td>
 
-                        <a href="/Abono/@ps.pedido/@ps.deuda"><button style="background-color: #4A9348; width: 50%;">Pagar</button></a>
-                    </td>
-                }
-            </tr>
+                                <td>
+                                    <a href="/ListaPagos/@ps.pedido"><button style="background-color: #147BC6; width: 50%;">Lista Pagos</button></a>
+
+                                    <a href="/Abono/@ps.pedido/@ps.deuda"><button style="background-color: #4A9348; width: 50%;">Pagar</button></a>
+                                </td>
+                            }
+                        </tr>
                     }
                 }
 
@@ -86,7 +88,7 @@
 </div>
 
 @code {
-   
+
     private IEnumerable<Pedidopagar> PPS;
     protected override async Task OnInitializedAsync()
     {

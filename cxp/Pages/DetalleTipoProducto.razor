@@ -1,5 +1,7 @@
 ﻿@page "/DetalleTipoProducto"
 @page "/DetalleTipoProducto/{id:int}"
+@layout Bodega;
+
 @using Model
 @using Interfaces
 @inject ITipoProductoService TipoProductoService
@@ -41,10 +43,10 @@
     protected override async Task OnInitializedAsync()
     {
         if (id == 0)
-        { 
-        TipoProducto = await TipoProductoService.GetTipoProductoDetails(id);
-    }
+        {
+            TipoProducto = await TipoProductoService.GetTipoProductoDetails(id);
+        }
 
-}
+    }
 
 }

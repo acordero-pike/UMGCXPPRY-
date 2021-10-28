@@ -1,6 +1,8 @@
-﻿@page "/Recepcion_Pedidos"
+﻿@page  "/Recepcion_Pedidos"
+@layout Receptor_pagador;
 @using Model
 @using Interfaces
+
 @inject NavigationManager uriHelper;
 @inject IRecepcion PP
 @inject IJSRuntime js
@@ -53,7 +55,7 @@
                             @if (ps.Recibido == true)
                             {
 
-                                <td><input  class="recibido" type="button" value="recibido" disabled /></td>
+                                <td><input class="recibido" type="button" value="recibido" disabled /></td>
                             }
                             else
                             {
@@ -88,7 +90,7 @@
         {
             throw;
         }
-       
+
 
     }
     protected async void recibir(int id)

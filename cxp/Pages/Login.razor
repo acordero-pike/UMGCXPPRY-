@@ -59,8 +59,21 @@
             await JSRuntime.InvokeVoidAsync("localStorage.setItem", "login", res.First().ID_Usuario
             );
             await JSRuntime.InvokeVoidAsync("localStorage.setItem", "name", res.First().Nombre +" "+ res.First().Apellido_P + " " + res.First().Apellido_S);
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "rol", res.First().Tipo_Usuario);
+            if(res.First().Tipo_Usuario=="Administrador")
+            {
+                uriHelper.NavigateTo("/Menu", forceLoad: true);
+            }
+            else if(res.First().Tipo_Usuario == "Receptor Pagador")
+            {
+                uriHelper.NavigateTo("/MenuR", forceLoad: true);
 
-            uriHelper.NavigateTo("/Menu", forceLoad: true);
+            }
+            else
+            {
+                uriHelper.NavigateTo("/MenuB", forceLoad: true);
+
+            }
 
         }
         else

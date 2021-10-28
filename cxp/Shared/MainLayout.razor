@@ -31,7 +31,7 @@ else
                         <a class="nav-link" href="/Proveedores">Proveedores</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Productos</a>
+                        <a class="nav-link" href="/Producto">Productos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/Recepcion_Pedidos">Recepcion</a>
@@ -92,7 +92,8 @@ else
     protected async void namea()
     {
         string x = await js.InvokeAsync<string>("localStorage.getItem", "name");
-        if (x != null)
+        string rol =   await js.InvokeAsync<string>("localStorage.getItem", "rol");
+        if (x != null && rol== "Administrador")
         {
             _isVisible = false;
             data = x;

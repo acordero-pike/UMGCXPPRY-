@@ -1,4 +1,6 @@
 ﻿@page "/TipoProducto"
+@layout Bodega;
+
 @using Model
 @using Interfaces
 @inject ITipoProductoService TipoProductoService
@@ -44,14 +46,23 @@ else
                     </tr>
                 </thead>
                 <tbody id="lista-equipos" style="background-color:#D8D8D8; color: #000;">
-                    @foreach (var tipoProducto in TipoProductos)
+                    @if (TipoProductos.Count() > 0)
                     {
-                    <tr>
+                        @foreach (var tipoProducto in TipoProductos)
+                        {
+                            <tr>
 
-                        <td>@tipoProducto.NombreProducto</td>
-                        <td><a href="/AgregarTipoProducto/@tipoProducto.IDTipoProducto"><img src="/img/editar.png" height="25" width="25" /></a></td>
-                        <td><button><img @onclick=@(e => dele( tipoProducto.IDTipoProducto)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;" /></button></td>
-                    </tr>
+                                <td>@tipoProducto.NombreProducto</td>
+                                <td><a href="/AgregarTipoProducto/@tipoProducto.IDTipoProducto"><img src="/img/editar.png" height="25" width="25" /></a></td>
+                                <td><button><img @onclick=@(e => dele( tipoProducto.IDTipoProducto)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;" /></button></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6">    SIN DATOS CARGADOS </td>
+                        </tr>
                     }
 
 

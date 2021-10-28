@@ -1,5 +1,7 @@
 ﻿@page "/Abono/{Id:int}/{de:float}"
 @page "/Abono/{Ids:int}"
+@layout Receptor_pagador;
+
 @using Model
 @using Interfaces
 
@@ -11,54 +13,54 @@
 <div class="container">
     <br>
 
-    
-
-        <EditForm Model="@abon">
-            <br>
-            <h1 class="titulo">Agregar pago</h1>
-            <br>
-
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" id="deuda" aria-describedby="inputGroup-sizing-default" placeholder="Deuda" value="@de" readonly>
-            </div>
-            <div class="input-group mb-3">
-                <input type="date" class="form-control" id="fecha" @bind="abon.Fecha_Pago" placeholder="Fecha de Pago" required>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-addon">Tipo de Pago </span>
-                <InputSelect class="form-control" @bind-Value="abon.Tipo_C_A" required>
-                    <option value="">Seleccione Una Opcion </option>
-                    <option value="Efectivo">Efectivo </option>
-                    <option value="Cheque">Cheque </option>
-                    <option value="Deposito">Deposito </option>
-                </InputSelect>
-            </div>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" id="boleta" @bind="abon.No_Boleta" aria-describedby="inputGroup-sizing-default" placeholder="No de Boleta" maxlength="15">
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-addon">Cantidad de Abono </span>
-                <input type="number" class="form-control" id="abono" @bind="abon.Cantidad_cargo_Abono" aria-describedby="inputGroup-sizing-default" placeholder="Cantidad a Abonar" max="@de" required>
-            </div>
 
 
+    <EditForm Model="@abon">
+        <br>
+        <h1 class="titulo">Agregar pago</h1>
+        <br>
 
-            <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="deuda" aria-describedby="inputGroup-sizing-default" placeholder="Deuda" value="@de" readonly>
+        </div>
+        <div class="input-group mb-3">
+            <input type="date" class="form-control" id="fecha" @bind="abon.Fecha_Pago" placeholder="Fecha de Pago" required>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-addon">Tipo de Pago </span>
+            <InputSelect class="form-control" @bind-Value="abon.Tipo_C_A" required>
+                <option value="">Seleccione Una Opcion </option>
+                <option value="Efectivo">Efectivo </option>
+                <option value="Cheque">Cheque </option>
+                <option value="Deposito">Deposito </option>
+            </InputSelect>
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="boleta" @bind="abon.No_Boleta" aria-describedby="inputGroup-sizing-default" placeholder="No de Boleta" maxlength="15">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-addon">Cantidad de Abono </span>
+            <input type="number" class="form-control" id="abono" @bind="abon.Cantidad_cargo_Abono" aria-describedby="inputGroup-sizing-default" placeholder="Cantidad a Abonar" max="@de" required>
+        </div>
 
-                @if (Ids == 0)
-                {
-                    <button type="submit" class="btn" id="agregar" @onclick="SaveFilm">Abonar</button>
-                }
-                else
-                {
-                    <button type="submit" class="btn" id="editar" @onclick="SaveFilm">Editar Abono</button>
-                }
-            </div>
-            <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
 
-                <button type="button" class="btn-dan" value="Cancel" @onclick="CancelFilm">Cancelar</button>
-            </div>
-        </EditForm>
+
+        <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
+
+            @if (Ids == 0)
+            {
+                <button type="submit" class="btn" id="agregar" @onclick="SaveFilm">Abonar</button>
+            }
+            else
+            {
+                <button type="submit" class="btn" id="editar" @onclick="SaveFilm">Editar Abono</button>
+            }
+
+
+
+            <button type="button" class="btn-dan" value="Cancel" @onclick="CancelFilm">Cancelar</button>
+        </div>
+    </EditForm>
 
 
 
@@ -66,7 +68,7 @@
 </div>
 
 @code {
- 
+
     [Parameter]
     public int id { get; set; }
     [Parameter]
@@ -101,7 +103,7 @@
     }
     protected override async Task OnInitializedAsync()
     {
-       
+
 
         if (Ids != 0)
         {
@@ -126,7 +128,7 @@
             abon.Fecha_Pago = DateTime.Now;
         }
 
-       
+
     }
 
 
