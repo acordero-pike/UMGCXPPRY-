@@ -6,11 +6,12 @@ namespace cxp.Model
 {
     public class usuario
     {
-        public int id_usuario { get; set; }
-        public string nombre { get; set; }
-        public string apellido { get; set; }
-        public string email { get; set; }
-        public int id_tipo_usuario { get; set; }
-        public string password { get; set; }
+        public int ID_Usuario { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido_P { get; set; }
+        public string Apellido_S { get; set; }
+        public string Correo { get; set; }
+        public string Tipo_Usuario { get; set; }
+        public string Contraseña { get; set; }
     }
 }

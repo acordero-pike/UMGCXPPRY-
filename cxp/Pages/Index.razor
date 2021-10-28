@@ -1,5 +1,6 @@
 ﻿@page "/Menu"
- @attribute [Authorize]
+@inject NavigationManager uriHelper;
+@inject IJSRuntime js
 <link href="/css/Menu.css" rel="stylesheet" />
 <div class="container" style="margin-top: 40px;">
     <div class="d-flex justify-content-center row row-cols-1 row-cols-md-3 g-4">
@@ -14,7 +15,7 @@
         </div>
         <div class="col">
             <a class="d-flex justify-content-center card card-fondo"
-               href="">
+               href="/Proveedores">
                 <img class="img-margin" src="/img/image 7.svg" alt="Algoritmos" style="width: 80%; height: 250px; height: 250px;">
                 <div class="card_container">
                     <h4>Proveedores</h4>
@@ -49,3 +50,16 @@
 
     </div>
 </div>
+
+@code
+{
+
+
+    protected override async Task OnInitializedAsync()
+    {
+       
+    }
+
+    
+
+}
