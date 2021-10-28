@@ -33,10 +33,10 @@
     <div id="login-section">
         <form id="signin-form" style="flex-direction:column; width: 100%; display: flex; justify-content:center; align-items:center;">
             <h1 id="titulo" style="margin-bottom: 15px;">Iniciar Sesión</h1>
-            <input type="email" class="form-control" id="inputEmail" @bind="us.email"
+            <input type="email" class="form-control" id="inputEmail" @bind="us.Correo"
                    style="height: 50px; width: 90%; margin-bottom: 20px;" aria-describedby="inputGroup-sizing-default"
                    placeholder="Correo" required>
-            <input type="password" class="form-control" id="inputPassword" @bind="us.password"
+            <input type="password" class="form-control" id="inputPassword" @bind="us.Contraseña"
                    style="height: 50px; width: 90%; margin-bottom: 15px;" aria-describedby="inputGroup-sizing-default"
                    placeholder="Contraseña" required>
             <div style=" text-align: center; margin-left: auto; margin-right: auto;">
@@ -52,13 +52,13 @@
     protected async void log()
     {
 
-        var res = await LS.OnPostAsync(us.email, us.password);
+        var res = await LS.OnPostAsync(us.Correo, us.Contraseña);
         if (res.Count()>0)
         {
 
-            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "login", res.First().id_usuario
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "login", res.First().ID_Usuario
             );
-            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "name", res.First().nombre +" "+ res.First().apellido           );
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "name", res.First().Nombre +" "+ res.First().Apellido_P + " " + res.First().Apellido_S);
 
             uriHelper.NavigateTo("/Menu", forceLoad: true);
 
