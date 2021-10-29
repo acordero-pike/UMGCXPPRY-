@@ -1,7 +1,10 @@
 using cxp.Data;
+using cxp.Interface;
+using cxp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,7 +30,13 @@ namespace cxp
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddHttpClient();
             services.AddSingleton<WeatherForecastService>();
+            services.AddScoped<IPedidoService, PedidoService>();
+            services.AddScoped<IProveedorService, ProveedoresService>();
+            services.AddScoped<IPedidoDetalleService, PedidoDetalleService>();
+            services.AddScoped<IProductoService, ProductoService>();
+            services.AddScoped<FileUtil>();
 
             var sqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("SqlConnection"));
 
@@ -46,6 +55,7 @@ namespace cxp
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

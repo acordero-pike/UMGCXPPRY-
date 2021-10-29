@@ -1,0 +1,106 @@
+﻿@page "/actualizadetalle"
+@page "/actualizadetalle/{Id:int}/{IdDetalle:int}"
+
+@using Model
+@using Interface
+
+@inject IPedidoService pedidoService
+@inject IPedidoDetalleService pedidoDetalleService
+@inject NavigationManager navigationManager
+@inject IProveedorService proveedorService
+@inject IProductoService productoService
+@inject IJSRuntime  js
+@inject FileUtil futil
+
+
+<link href="/css/add.css" rel="stylesheet" />
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="titulo">Actualiza Detalle Pedido </h1>
+    <br>
+    <br>
+
+    <table>
+        <tr>
+            <th style="text-align:initial"> <strong>Fecha</strong></th>
+            <td style="text-align:right">@detallePedido.fechaFactura.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <th style="text-align:initial"><strong>No. Factura</strong></th>
+            <td style="text-align:right">@detallePedido.idpedido</td>
+        </tr>
+        <tr>
+            <th style="text-align:initial"><strong>Nombre</strong></th>
+            <td style="text-align:right">@detallePedido.NombreProveedor</td>
+        </tr>
+        <tr>
+            <th style="text-align:initial"><strong>Importe</strong></th>
+            <td style="text-align:right">@detallePedido.totalFactura</td>
+        </tr>
+    </table>
+    <br />
+    <br />
+
+    <div class="input-group mb-3">
+        <span class="input-group-addon">Cantidad </span>
+        <input type="number" @bind="detalle.cantidad" class="form-control" id="cantidad" aria-describedby="inputGroup-sizing-default" placeholder="Cantidad" required />
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-addon">Codigo Producto</span>
+        <input type="number" @bind="detalle.idproducto" class="form-control" id="idProducto" aria-describedby="inputGroup-sizing-default" placeholder="Codigo Producto" readonly />
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-addon">Nombre Producto</span>
+        <input type="text" @bind="detalle.NombreProducto" class="form-control" id="NomProducto" aria-describedby="inputGroup-sizing-default" placeholder="Nombre Producto" readonly />
+    </div>
+    @*<div class="input-group mb-3">
+        <span class="input-group-addon">Sub-Total </span>
+        <input type="number" @bind="@detalle.total" placeholder="Valor" readonly />
+    </div>*@
+    <div class="alert alert-danger" id="alert" role="alert" style="display: none;">
+        Todos los campos son necesarios!
+    </div>
+
+    <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
+        <button type="button" class="btn" id="agregar" @onclick="Guardar">Guardar</button>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    [Parameter] public int IdDetalle { get; set; }
+    Pedidos pedido = new Pedidos();
+    PedidoDetalle detalle = new PedidoDetalle();
+    Productos producto = new Productos();
+    public List<usuarios> lusuarios { get; set; } = new List<usuarios>();
+    public PedidoDetalle detallePedido = new PedidoDetalle();
+    public string MyOption { get; set; }
+    public string descripcion = null;
+    public string valor = null;
+    public string mensaje = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        pedido.IDUsuario = 1;
+        pedido.Fecha = DateTime.Now;
+        detallePedido = await pedidoDetalleService.GetDetallePedido(Id);
+        detalle = await pedidoDetalleService.GetPedidoDetalles(Id, IdDetalle);
+
+    }
+
+    protected async Task Guardar()
+    {
+        Console.WriteLine("proveedor " + pedido.IDProveedor);
+
+        await pedidoDetalleService.UpdatePedidoDetalle(detalle);
+        await pedidoService.UpdateMonto(Id);
+
+
+        navigationManager.NavigateTo("/detalleagregarlist/" + Id);
+
+    }
+}

@@ -1,0 +1,179 @@
+﻿@page "/detalleagregarlist"
+@page "/detalleagregarlist/{Id:int}"
+
+@using Model
+@using Interface
+
+@inject IPedidoService pedidoService
+@inject IPedidoDetalleService pedidoDetalleService
+@inject NavigationManager navigationManager
+@inject IProveedorService proveedorService
+@inject IProductoService productoService
+@inject IJSRuntime  js
+@inject FileUtil futil
+
+
+<link href="/css/add.css" rel="stylesheet" />
+@if (detallePedido == null)
+{
+    <p>Cargando......</p>
+}
+else
+{
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="titulo">Detalle Pedido </h1>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <th style="text-align:initial"> <strong>Fecha</strong></th>
+            <td style="text-align:right">@detallePedido.fechaFactura.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <th style="text-align:initial"><strong>No. Factura</strong></th>
+            <td style="text-align:right">@detallePedido.idpedido</td>
+        </tr>
+        <tr>
+            <th style="text-align:initial"><strong>Nombre</strong></th>
+            <td style="text-align:right">@detallePedido.NombreProveedor</td>
+        </tr>
+        <tr>
+            <th style="text-align:initial"><strong>Importe</strong></th>
+            <td style="text-align:right">@detallePedido.totalFactura</td>
+        </tr>
+    </table>
+    <br />
+    <br />
+
+    <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
+        <button type="submit" class="btn" id="agregar" @onclick="agregar">Agregar Pedido</button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-light table-bordered" style="text-align: center;">
+            <thead class="table" style="background-color: #021329; color: white;">
+                <tr>
+                    <th>Cantidad</th>
+                    <th>Id Producto</th>
+                    <th>Nombre Producto</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="lista-equipos" style="background-color: #D8D8D8; color: #000;">
+                @foreach (var pedidoDetalle in lpedidoDetalle)
+                {
+                    <tr>
+                        <td>@pedidoDetalle.cantidad</td>
+                        <td>@pedidoDetalle.idproducto</td>
+                        <td>@pedidoDetalle.NombreProducto</td>
+                        <td>@((double)pedidoDetalle.total)</td>
+                        <td>
+                            <a href="/actualizadetalle/@pedidoDetalle.idpedido/@pedidoDetalle.iddetalle">
+                                <img class="img-margin" src="/img/editar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
+                            </a>
+                            <a> <img @onclick=@(e => dtl( @pedidoDetalle.idpedido,pedidoDetalle.iddetalle)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+}
+
+
+
+@code {
+    [Parameter] public int Id { get; set; }
+    Pedidos pedido = new Pedidos();
+    PedidoDetalle detalle = new PedidoDetalle();
+    Productos producto = new Productos();
+    public List<usuarios> lusuarios { get; set; } = new List<usuarios>();
+    public List<proveedores> lproveedor { get; set; } = new List<proveedores>();
+    public List<Productos> lproductos { get; set; } = new List<Productos>();
+    public List<PedidoDetalle> lpedidoDetalle { get; set; } = new List<PedidoDetalle>();
+    public PedidoDetalle detallePedido = new PedidoDetalle();
+    public string MyOption { get; set; }
+    public string descripcion = null;
+    public string valor = null;
+    public string mensaje = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        pedido.IDUsuario = 1;
+        pedido.Fecha = DateTime.Now;
+        lproveedor = (await proveedorService.GetAllProveedor()).ToList();
+        lproductos = (await productoService.GetAllProductos()).ToList();
+        lpedidoDetalle = (await pedidoDetalleService.GetListaPedidoDetalle(Id)).ToList();
+        detallePedido = await pedidoDetalleService.GetDetallePedido(Id);
+
+    }
+
+    private async void Option(ChangeEventArgs e)
+    {
+        descripcion = null;
+        valor = null;
+
+        producto = await productoService.GetProductosDetalles(int.Parse(e.Value.ToString()));
+
+        descripcion = producto.nombreproducto;
+        valor = (producto.precio * detalle.cantidad).ToString();
+        detalle.descripcion = descripcion;
+        detalle.total = int.Parse(valor);
+        detalle.idproducto = producto.idproducto;
+        detalle.idpedido = Id;
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+
+    protected async Task Guardar()
+    {
+        Console.WriteLine("proveedor " + pedido.IDProveedor);
+        var confirmacion = await js.InvokeAsync<bool>("confirmar",
+                "Desea agregar otro producto?", "", "Si", "No", "question");
+
+        if (confirmacion)
+        {
+            await pedidoDetalleService.InsertPedidoDetalle(detalle);
+            navigationManager.NavigateTo("/detalleagregar/" + Id);
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+        {
+            await pedidoDetalleService.InsertPedidoDetalle(detalle);
+            navigationManager.NavigateTo("/pedidolista");
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected async void dtl(int id, int iddetalle)
+    {
+
+        var confirmacion = await js.InvokeAsync<bool>("confirmar", "Eliminar", "Seguro que desea Eliminar este Producto del Pedido?", "question");
+        if (confirmacion)
+        {
+
+            await pedidoDetalleService.DeletePedidoDetalle(id,iddetalle);
+            await pedidoService.UpdateMonto(id);
+
+            navigationManager.NavigateTo(navigationManager.Uri, forceLoad: true);
+            //navigationManager.NavigateTo("/pedidolista");
+            await InvokeAsync(StateHasChanged);
+
+        }
+    }
+
+
+    protected void agregar()
+    {
+        navigationManager.NavigateTo("/detalleagregar/" + Id);
+    }
+}

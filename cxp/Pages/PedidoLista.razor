@@ -1,0 +1,107 @@
+﻿@page "/pedidolista"
+
+@using Model
+@using Interface
+@using System.Linq
+
+@inject IPedidoService pedidoService
+@inject IPedidoDetalleService detalleService
+@inject NavigationManager navigationManager
+@inject IJSRuntime js
+
+
+<link href="/css/lista.css" rel="stylesheet" />
+@if (lispedidos == null)
+{
+    <p>Cargando......</p>
+}
+else
+{
+    <div class="container" style="text-align: center;">
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="titulo">Listado Pedidos</h1>
+        <br>
+        <br>
+        <br>
+        <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
+            <button type="submit" class="btn" id="agregar" @onclick="agregar">Agregar Pedido</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-light table-bordered" style="text-align: center;">
+                <thead class="table" style="background-color: #021329; color: white;">
+                    <tr>
+                        <th># Factura</th>
+                        <th>Fecha</th>
+                        <th>Usuario</th>
+                        <th>Proveedor</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="lista-equipos" style="background-color: #D8D8D8; color: #000;">
+                    @foreach (Pedidos item in lispedidos)
+                    {
+                        <tr>
+                            <td>@item.NoFactura</td>
+                            <td>@item.Fecha.ToShortDateString()</td>
+                            <td>@item.NombreUsuario</td>
+                            <td>@item.NombreProveedor</td>
+                            <td>@item.Total</td>
+                            <td>
+                                <a href="/detalleagregarlist/@item.NoFactura">
+                                    <img class="img-margin" src="/img/editar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
+                                </a>
+                                <a> <img @onclick=@(e => dtl( item.NoFactura)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;"></a>
+                                   
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@code {
+    Pedidos itempedido = new Pedidos();
+    private IEnumerable<Pedidos> lispedidos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            lispedidos = await pedidoService.GetAllPedido();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("error " + ex.Message);
+        }
+    }
+    protected void agregar()
+    {
+        navigationManager.NavigateTo("/pedidoagregar");
+    }
+
+    protected async void dtl(int id)
+    {
+
+        var confirmacion = await js.InvokeAsync<bool>("confirmar", "Eliminar", "Seguro que desea Eliminar el Pedido?", "question");
+        if (confirmacion)
+        {
+
+            await detalleService.DeleteDetallePedidoAll(id);
+            await pedidoService.DeletePedido(id);
+
+            navigationManager.NavigateTo(navigationManager.Uri, forceLoad: true);
+            //navigationManager.NavigateTo("/pedidolista");
+            await InvokeAsync(StateHasChanged);
+
+        }
+
+
+
+    }
+}
