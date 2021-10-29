@@ -1,0 +1,76 @@
+﻿@page "/Agregar"
+@page "/Agregar/{id:int}"
+@using Model
+@using Interfaces
+@inject IProveedorService ProveedorService
+@inject NavigationManager NavigationManager
+<link href="/css/add.css" rel="stylesheet" />
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="titulo">Agregar proveedor</h1>
+    <br>
+    <br>
+
+
+
+
+    <div class="input-group mb-3">
+        <input type="text" @bind="Proveedor.Nombre" class="form-control" id="Nombre" aria-describedby="inputGroup-sizing-default" placeholder="Nombre Proveedor" required>
+    </div>
+    <div class="input-group mb-3">
+        <input type="text" @bind="Proveedor.Descripcion" class="form-control" id="descripcion" aria-describedby="inputGroup-sizing-default" placeholder="Descripción" required>
+    </div>
+    <div class="input-group mb-3">
+        <input type="text" @bind="Proveedor.Direccion" class="form-control" id="apellido2" aria-describedby="inputGroup-sizing-default" placeholder="Dirección" required>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-addon">Telefono </span>
+        <input type="number" class="form-control" id="telefono" @bind="Proveedor.Telefono" aria-describedby="inputGroup-sizing-default" placeholder="Telefono" required>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-addon">Tiempo de Crédito </span>
+        <input type="text" class="form-control" id="Tiempo" @bind="Proveedor.Tiempo" aria-describedby="inputGroup-sizing-default" placeholder="Tiempo de crédito" required>
+    </div>
+    <div class="alert alert-danger" id="alert" role="alert" style="display: none;">
+        Todos los campos son necesarios!
+    </div>
+
+    <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
+        <button type="button" class="btn" id="agregar" @onclick="SaveProveedor">Agregar</button>
+        <button type="button" class="btn-dan" id="cancelar" @onclick="CancelProveedor">Cancelar</button>
+    </div>
+
+</div>
+
+
+@code {
+        [Parameter]
+        public int id { get; set; }
+        proveedor Proveedor = new proveedor();
+        protected void CancelProveedor()
+        {
+            NavigationManager.NavigateTo("/Proveedores");
+        }
+        protected async Task SaveProveedor()
+        {
+            await ProveedorService.SaveProveedor(Proveedor);
+            NavigationManager.NavigateTo("/Proveedores");
+        }
+    protected override async Task OnInitializedAsync()
+
+    {
+        if (id == 0)
+        {
+
+        }
+        else
+        {
+            Proveedor = await ProveedorService.GetDetails(id);
+        }
+
+
+    }
+}

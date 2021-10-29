@@ -58,3 +58,17 @@ footer {
 #editar:hover {
     cursor: pointer;
 }
+
+.recibir,.recibido
+{
+    color:white;
+}
+
+.recibir {
+    background-color: green;
+}
+
+.recibido {
+    background-color: red;
+}
+

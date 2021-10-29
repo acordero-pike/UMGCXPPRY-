@@ -1,0 +1,88 @@
+﻿@page "/"
+@layout LoginLayout
+@inject NavigationManager uriHelper;
+@using cxp.Interfaces
+@using cxp.Model
+@inject ILogin LS
+@inject   IJSRuntime   JSRuntime
+
+
+
+
+<link href="/css/login.css" rel="stylesheet" />
+
+
+
+
+<div id="container">
+    <div id="info-section">
+        @if (_isVisible)
+        {
+            <div class="alert alert-danger" role="alert" id="alert" style="text-align: center;">
+
+                <p>  Contraseña o Correo Incorrectos , intente de nuevo </p>
+            </div>
+        }
+
+        <img id="logo" src="../img/logo.svg" alt="Logo">
+        <h2 id="bienvenida">CXP</h2>
+        <p id="description" style="text-align: center;">
+            Registro de Cuentas por Pagar!
+        </p>
+    </div>
+    <div id="login-section">
+        <form id="signin-form" style="flex-direction:column; width: 100%; display: flex; justify-content:center; align-items:center;">
+            <h1 id="titulo" style="margin-bottom: 15px;">Iniciar Sesión</h1>
+            <input type="email" class="form-control" id="inputEmail" @bind="us.Correo"
+                   style="height: 50px; width: 90%; margin-bottom: 20px;" aria-describedby="inputGroup-sizing-default"
+                   placeholder="Correo" required>
+            <input type="password" class="form-control" id="inputPassword" @bind="us.Contraseña"
+                   style="height: 50px; width: 90%; margin-bottom: 15px;" aria-describedby="inputGroup-sizing-default"
+                   placeholder="Contraseña" required>
+            <div style=" text-align: center; margin-left: auto; margin-right: auto;">
+                <button type="button" class="btnLogin" id="agregar" @onclick="log">Iniciar Sesión</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+    private bool _isVisible = false;
+    usuario us = new usuario();
+    protected async void log()
+    {
+
+        var res = await LS.OnPostAsync(us.Correo, us.Contraseña);
+        if (res.Count()>0)
+        {
+
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "login", res.First().ID_Usuario
+            );
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "name", res.First().Nombre +" "+ res.First().Apellido_P + " " + res.First().Apellido_S);
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "rol", res.First().Tipo_Usuario);
+            if(res.First().Tipo_Usuario=="Administrador")
+            {
+                uriHelper.NavigateTo("/Menu", forceLoad: true);
+            }
+            else if(res.First().Tipo_Usuario == "Receptor Pagador")
+            {
+                uriHelper.NavigateTo("/MenuR", forceLoad: true);
+
+            }
+            else
+            {
+                uriHelper.NavigateTo("/MenuB", forceLoad: true);
+
+            }
+
+        }
+        else
+        {
+            _isVisible = true;
+            StateHasChanged();
+
+
+        }
+    }
+
+}

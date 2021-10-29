@@ -1,0 +1,52 @@
+﻿@page "/DetalleTipoProducto"
+@page "/DetalleTipoProducto/{id:int}"
+@layout Bodega;
+
+@using Model
+@using Interfaces
+@inject ITipoProductoService TipoProductoService
+@inject NavigationManager NavigationManager
+
+
+<h1>Detalle Tipo Producto</h1>
+
+<EditForm Model="@TipoProducto">
+    <table class="table">
+        <tr>
+            <td>Nombre Tipo de Producto:</td>
+            <td><input type="text" @bind="TipoProducto.NombreProducto" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center">
+                <input type="submit" value="Guardar" @onclick="SaveTipoProducto" />
+                <input type="button" value="Cancelar" @onclick="CancelTipoProducto" />
+            </td>
+        </tr>
+    </table>
+</EditForm>
+
+
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    TipoProducto TipoProducto = new TipoProducto();
+    protected void CancelTipoProducto()
+    {
+        NavigationManager.NavigateTo("/TipoProducto");
+    }
+    protected async Task SaveTipoProducto()
+    {
+        await TipoProductoService.SaveTipoProducto(TipoProducto);
+        NavigationManager.NavigateTo("/TipoProducto");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        if (id == 0)
+        {
+            TipoProducto = await TipoProductoService.GetTipoProductoDetails(id);
+        }
+
+    }
+
+}

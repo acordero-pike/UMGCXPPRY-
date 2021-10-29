@@ -1,0 +1,115 @@
+﻿@page "/Producto"
+@layout Bodega;
+
+@using Model
+@using Interfaces
+@inject IProductoService ProductoService
+@inject IJSRuntime js
+@inject NavigationManager Naviman
+<link href="/css/lista.css" rel="stylesheet" />
+
+@if (Producto == null)
+{
+    <p><em>Loading...</em></p>
+
+}
+else
+{
+
+
+    <div class="container" style="
+    text-align: center;
+">
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="titulo">Producto</h1>
+        <br>
+        <a href="/TipoProducto"><i>Tipos de Producto</i></a>
+        <br>
+        <br>
+        <a href="/AgregarProducto"><i>Agregar Producto</i></a>
+        <br>
+        <br>
+
+
+        <div class="table-responsive">
+
+            <table class="table table-light table-bordered" style="text-align: center;">
+                <thead class="table" style="background-color: #021329; color: white;">
+                    <tr>
+                        <th>Nombre de Producto</th>
+                        <th>Tipo de Producto</th>
+                        <th>Stock</th>
+                        <th>Precio</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="lista-equipos" style="background-color:#D8D8D8; color: #000;">
+                    @if (Producto.Count() < 1)
+                    {
+                        <tr>
+                            <td colspan="6">    SIN DATOS CARGADOS </td>
+                        </tr>
+
+                    }
+                    else
+                    {
+                        @foreach (var producto in Producto)
+                        {
+                            <tr>
+                                <td>@producto.NombreP</td>
+                                <td>@producto.IDTipoProducto</td>
+                                <td>@producto.Stock</td>
+                                <td>Q. @producto.Precio</td>
+
+                                <td><a href="/AgregarProducto/@producto.IDProducto"><img src="/img/editar.png" height="25" width="25" /></a></td>
+                                <td><button><img @onclick=@(e => delete( producto.IDProducto)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;" /></button></td>
+                            </tr>
+                        }
+                    }
+
+
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @code {
+
+        private IEnumerable<Producto> Producto;
+        protected override async Task OnInitializedAsync()
+        {
+
+            try
+            {
+                Producto = await ProductoService.GetAllProducto();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
+        }
+        protected async void delete(int id)
+        {
+
+            var confirmacion = await js.InvokeAsync<bool>("confirmar", "Eliminar", "Seguro que desea Eliminar el Pago?", "question");
+            if (confirmacion)
+            {
+                await ProductoService.DeleteProducto(id);
+
+                Naviman.NavigateTo(Naviman.Uri, forceLoad: true);
+            }
+
+
+
+        }
+    }
+
+}

@@ -1,0 +1,107 @@
+﻿@page "/ListaPagos/{Id:int}"
+@layout Receptor_pagador;
+
+@using Model
+@using Interfaces
+@inject IAbono  PP
+@inject NavigationManager uriHelper;
+@inject IJSRuntime js
+
+
+<link href="/css/lista.css" rel="stylesheet" />
+<div class="container" style="text-align: center;">
+    @if (PPS == null)
+    {
+        <p><em>Loading...</em></p>
+
+    }
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="titulo">Listado de Pagos </h1>
+    <h2> Pedido # @Id</h2>
+    <br>
+    <br>
+    <br>
+
+
+
+    <div class="table-responsive">
+        <table class="table table-light table-bordered" style="text-align: center;">
+            <thead class="table" style="background-color: #021329; color: white;">
+                <tr>
+                    <th>Pedido</th>
+                    <th>Fecha Pago</th>
+                    <th>Tipo Pago</th>
+                    <th>Cantidad Pagada</th>
+                    <th> No Boleta</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="lista-equipos" style="background-color:#D8D8D8; color: #000;">
+                @if (PPS == null)
+                {
+                    <tr>
+                        <td colspan="6"> Sin Datos</td>
+                    </tr>
+
+                }
+                else
+                {
+                    @foreach (var ps in PPS)
+                    {
+                        <tr>
+                            <td>@ps.No_Factura</td>
+                            <td>@ps.Fecha_Pago.ToShortDateString()</td>
+                            <td>@ps.Tipo_C_A</td>
+                            <td>@ps.Cantidad_cargo_Abono</td>
+                            <td>@ps.No_Boleta</td>
+
+                            <td>
+                                <a href="/Abono/@ps.ID_Cargo_Abono"><button style="background-color: #147BC6; width: 50%;">Editar</button></a>
+                                <button style="background-color: #147BC6; width: 50%;" @onclick=@(e => dtl( ps.ID_Cargo_Abono))>Eliminar</button>
+
+
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    [Parameter]
+    public float deuda { get; set; }
+    private IEnumerable<Model.Abonos> PPS;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            PPS = await PP.Getall(Id);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+    protected async void dtl(int id)
+    {
+
+        var confirmacion = await js.InvokeAsync<bool>("confirmar", "Eliminar", "Seguro que desea Eliminar el Pago?", "question");
+        if (confirmacion)
+        {
+            await PP.Deletepaga(id);
+
+            uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
+        }
+
+
+
+    }
+}
+

@@ -181,3 +181,11 @@ app {
         display: block;
     }
 }
+
+.input-group-addon {
+    width: auto;
+}
+
+a{
+    color:black;
+}
