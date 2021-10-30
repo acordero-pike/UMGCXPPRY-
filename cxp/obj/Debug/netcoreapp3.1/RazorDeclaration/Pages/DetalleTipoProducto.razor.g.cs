@@ -89,7 +89,7 @@ using Interfaces;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Bodega))]
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(BodegaLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/DetalleTipoProducto")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/DetalleTipoProducto/{id:int}")]
     public partial class DetalleTipoProducto : Microsoft.AspNetCore.Components.ComponentBase

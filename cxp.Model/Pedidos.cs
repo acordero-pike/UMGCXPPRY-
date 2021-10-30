@@ -6,7 +6,7 @@ namespace cxp.Model
 {
     public class Pedidos
     {
-        public int NoFactura { get; set; }
+        public Int64 NoFactura { get; set; }
         public DateTime Fecha { get; set; }
         public int IDUsuario { get; set; }
         public int IDProveedor { get; set; }

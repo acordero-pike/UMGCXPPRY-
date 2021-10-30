@@ -89,7 +89,7 @@ using Interfaces;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Bodega))]
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(BodegaLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/AgregarProducto")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/AgregarProducto/{Id:int}")]
     public partial class InsertProducto : Microsoft.AspNetCore.Components.ComponentBase

@@ -28,7 +28,7 @@ namespace cxp.Services
             return _RECRepository.GetAll();
         }
 
-        public Task<bool> Recibir(int id)
+        public Task<bool> Recibir(long id)
         {
             return _RECRepository.Recibir(id);
         }

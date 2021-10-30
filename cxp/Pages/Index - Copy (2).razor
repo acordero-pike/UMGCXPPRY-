@@ -1,5 +1,5 @@
 ﻿@page "/MenuB"
-@layout Bodega;
+@layout BodegaLayout;
 @inject NavigationManager uriHelper;
 @inject IJSRuntime js
 <link href="/css/Menu.css" rel="stylesheet" />
@@ -16,7 +16,7 @@
             </a>
         </div>
         <div class="col">
-            <a class="d-flex justify-content-center card card-fondo" href="">
+            <a class="d-flex justify-content-center card card-fondo" href="/pedidolista">
                 <img class="img-margin" src="/img/—Pngtree—hand drawn cartoon blue home_5553212 1.svg" alt="Algoritmos" style="width: 80%; height: 250px;">
                 <div class="card_container">
                     <h4>Pedidos</h4>

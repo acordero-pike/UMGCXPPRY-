@@ -1,8 +1,9 @@
 ﻿@page "/actualizadetalle"
 @page "/actualizadetalle/{Id:int}/{IdDetalle:int}"
+@layout BodegaLayout;
 
 @using Model
-@using Interface
+@using Interfaces
 
 @inject IPedidoService pedidoService
 @inject IPedidoDetalleService pedidoDetalleService
@@ -57,9 +58,9 @@
         <input type="text" @bind="detalle.NombreProducto" class="form-control" id="NomProducto" aria-describedby="inputGroup-sizing-default" placeholder="Nombre Producto" readonly />
     </div>
     @*<div class="input-group mb-3">
-        <span class="input-group-addon">Sub-Total </span>
-        <input type="number" @bind="@detalle.total" placeholder="Valor" readonly />
-    </div>*@
+            <span class="input-group-addon">Sub-Total </span>
+            <input type="number" @bind="@detalle.total" placeholder="Valor" readonly />
+        </div>*@
     <div class="alert alert-danger" id="alert" role="alert" style="display: none;">
         Todos los campos son necesarios!
     </div>
@@ -75,7 +76,7 @@
     Pedidos pedido = new Pedidos();
     PedidoDetalle detalle = new PedidoDetalle();
     Productos producto = new Productos();
-    public List<usuarios> lusuarios { get; set; } = new List<usuarios>();
+    public List<usuario> lusuarios { get; set; } = new List<usuario>();
     public PedidoDetalle detallePedido = new PedidoDetalle();
     public string MyOption { get; set; }
     public string descripcion = null;

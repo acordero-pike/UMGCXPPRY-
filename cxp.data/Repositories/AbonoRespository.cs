@@ -44,11 +44,11 @@ namespace cxp.data.Repositories
             var db = DbConnection();
             var sql = @"EXEC editpagar  @idd  ,@id  , @monto , @fecha  , @tipo, @boleta";
 
-            var res = await db.ExecuteAsync(sql.ToString(), new { idd=AB.ID_Cargo_Abono, id=AB.No_Factura,monto=AB.Cantidad_cargo_Abono, fecha=AB.Fecha_Pago.ToShortDateString(),tipo=AB.Tipo_C_A , boleta=AB.No_Boleta});
+            var res = await db.ExecuteAsync(sql.ToString(), new { idd=AB.ID_Cargo_Abono, id=AB.No_Factura,monto=AB.Cantidad_cargo_Abono, fecha=AB.Fecha_Pago.Date,tipo=AB.Tipo_C_A , boleta=AB.No_Boleta});
             return res > 0;
         }
 
-        public async Task<IEnumerable<Abonos>> Getall(int id)
+        public async Task<IEnumerable<Abonos>> Getall(long id)
         {
             var db = DbConnection();
             var sql = @"EXEC pagos @id";

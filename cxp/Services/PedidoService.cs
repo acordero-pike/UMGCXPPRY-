@@ -1,6 +1,6 @@
 ﻿using cxp.data.Repository;
 using cxp.Data;
-using cxp.Interface;
+using cxp.Interfaces;
 using cxp.Model;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace cxp.Services
             _configuration = configuration;
             _pedidoRepository = new PedidoRepository(configuration.ConnectionString);
         }
-        public Task<bool> DeletePedido(int id)
+        public Task<bool> DeletePedido(long id)
         {
            return _pedidoRepository.DeletePedido(id);
         }
@@ -39,7 +39,7 @@ namespace cxp.Services
             return _pedidoRepository.InsertPedido(pedido);
         }
 
-        public Task<bool> UpdateMonto(int id)
+        public Task<bool> UpdateMonto(long id)
         {
             return _pedidoRepository.UpdateMonto(id);
         }

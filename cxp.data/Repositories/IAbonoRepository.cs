@@ -8,7 +8,7 @@ namespace cxp.data.Repositories
 {
     public interface IAbonoRepository
     {
-        Task<IEnumerable<Abonos>> Getall(int id);
+        Task<IEnumerable<Abonos>> Getall(long id);
         Task<Abonos> GetDetails(int id);
 
         Task<bool> Deletepaga(int id);

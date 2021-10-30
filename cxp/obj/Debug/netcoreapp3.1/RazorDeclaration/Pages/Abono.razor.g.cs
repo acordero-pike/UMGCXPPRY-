@@ -90,7 +90,7 @@ using Interfaces;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Receptor_pagador))]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Abono/{Id:int}/{de:float}")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Abono/{id:long}/{de:float}")]
     [Microsoft.AspNetCore.Components.RouteAttribute("/Abono/{Ids:int}")]
     public partial class Abono : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -104,7 +104,7 @@ using Interfaces;
        
 
     [Parameter]
-    public int id { get; set; }
+    public long id { get; set; }
     [Parameter]
     public float de { get; set; }
     [Parameter]
@@ -126,6 +126,11 @@ using Interfaces;
         else if (abon.Cantidad_cargo_Abono > Convert.ToDecimal(de))
         {
             await js.InvokeVoidAsync("alert", "La cantidad Excede la Deuda , ingrese una cantida igual o menor !"); // Alert
+
+        }
+        else if (abon.Cantidad_cargo_Abono  ==0 || abon.Cantidad_cargo_Abono<0)
+        {
+            await js.InvokeVoidAsync("alert", "La cantidad ingresada es cero o invalida  !"); // Alert
 
         }
         else

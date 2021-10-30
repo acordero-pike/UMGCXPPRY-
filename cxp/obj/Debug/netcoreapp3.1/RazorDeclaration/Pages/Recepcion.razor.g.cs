@@ -122,7 +122,7 @@ using Interfaces;
 
 
     }
-    protected async void recibir(int id)
+    protected async void recibir(long id)
     {
 
         var confirmacion = await js.InvokeAsync<bool>("confirmar", "Recibir", "Seguro que desea Recibir el pedido?", "question");

@@ -7,7 +7,7 @@ namespace cxp.Model
     public class PedidoDetalle
     {
         public int iddetalle { get; set; }
-        public int idpedido { get; set; }
+        public long idpedido { get; set; }
         public int idproducto { get; set; }
         public string descripcion { get; set; }
         public decimal cantidad { get; set; }

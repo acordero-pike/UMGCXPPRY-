@@ -90,7 +90,7 @@ using Interfaces;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Receptor_pagador))]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/ListaPagos/{Id:int}")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/ListaPagos/{Id:long}")]
     public partial class ListaPagos : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -102,7 +102,7 @@ using Interfaces;
 #line 75 "C:\Users\albin\Desktop\UMG CXP PRY\UMGCXPPRY-\cxp\Pages\ListaPagos.razor"
        
     [Parameter]
-    public int Id { get; set; }
+    public long Id { get; set; }
     [Parameter]
     public float deuda { get; set; }
     private IEnumerable<Model.Abonos> PPS;

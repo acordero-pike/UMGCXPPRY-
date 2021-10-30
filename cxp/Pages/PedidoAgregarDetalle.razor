@@ -1,15 +1,15 @@
 ﻿@page "/detalleagregar"
-@page "/detalleagregar/{Id:int}"
-
+@page "/detalleagregar/{Id:long}"
+@layout BodegaLayout;
 @using Model
-@using Interface
+@using Interfaces
 
 @inject IPedidoService pedidoService
 @inject IPedidoDetalleService pedidoDetalleService
 @inject NavigationManager navigationManager
 @inject IProveedorService proveedorService
 @inject IProductoService productoService
-@inject IJSRuntime  js 
+@inject IJSRuntime  js
 @inject FileUtil futil
 
 
@@ -25,15 +25,15 @@
 
     <table>
         <tr>
-            <th style="text-align:initial"> <strong>Fecha</strong></th>
+            <th style="text-align:initial"> <strong>Fecha:  </strong></th>
             <td style="text-align:right">@detallePedido.fechaFactura.ToShortDateString()</td>
         </tr>
         <tr>
-            <th style="text-align:initial"><strong>No. Factura</strong></th>
+            <th style="text-align:initial"><strong>No. Factura:  </strong></th>
             <td style="text-align:right">@detallePedido.idpedido</td>
         </tr>
         <tr>
-            <th style="text-align:initial"><strong>Nombre</strong></th>
+            <th style="text-align:initial"><strong>Nombre:  </strong></th>
             <td style="text-align:right">@detallePedido.NombreProveedor</td>
         </tr>
     </table>
@@ -43,20 +43,36 @@
     <EditForm Model="@detalle">
         <div class="input-group mb-3">
             <span class="input-group-addon">Cantidad </span>
-            <input type="number" @bind="detalle.cantidad" class="form-control" id="cantidad" aria-describedby="inputGroup-sizing-default" placeholder="Cantidad" required>
+            <input type="number"   @onchange="cant" class="form-control" id="cantidad" aria-describedby="inputGroup-sizing-default" placeholder="Cantidad"   required>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-addon">Producto </span>
-            <select  @onchange="Option" class="form-control" id="IdProducto" aria-describedby="inputGroup-sizing-default" placeholder="Producto" required>
-                @if (detalle?.idproducto != null)
-                {
-                    <option value="">Seleccione Producto</option>
-                    @foreach (var item in lproductos)
+            @if (_visible)
+            {
+                <select @onchange="Option" class="form-control" id="IdProducto" aria-describedby="inputGroup-sizing-default" placeholder="Producto" required hidden>
+                    @if (detalle?.idproducto != null)
                     {
-                        <option value="@item.idproducto">@item.nombreproducto</option>
+                        <option value="">Seleccione Producto</option>
+                        @foreach (var item in lproductos)
+                        {
+                            <option value="@item.IDProducto">@item.NombreP</option>
+                        }
                     }
-                }
-            </select>
+                </select>
+            }
+            else
+            {
+                <select @onchange="Option" class="form-control" id="IdProducto" aria-describedby="inputGroup-sizing-default" placeholder="Producto" required>
+                    @if (detalle?.idproducto != null)
+                    {
+                        <option value="">Seleccione Producto</option>
+                        @foreach (var item in lproductos)
+                        {
+                            <option value="@item.IDProducto">@item.NombreP</option>
+                        }
+                    }
+                </select>
+            }
         </div>
         <div class="input-group mb-3">
             <span class="input-group-addon">Sub-Total </span>
@@ -74,30 +90,37 @@
 </div>
 
 @code {
-    [Parameter] public int Id { get; set; }
+    private bool _visible =true;
+    [Parameter] public long Id { get; set; }
     Pedidos pedido = new Pedidos();
     PedidoDetalle detalle = new PedidoDetalle();
-    Productos producto = new Productos();
-    public List<usuarios> lusuarios { get; set; } = new List<usuarios>();
-    public List<proveedores> lproveedor { get; set; } = new List<proveedores>();
-    public List<Productos> lproductos { get; set; } = new List<Productos>();
+    Producto producto = new Producto();
+    public List<usuario> lusuarios { get; set; } = new List<usuario>();
+    public List<proveedor> lproveedor { get; set; } = new List<proveedor>();
+    public List<Producto> lproductos { get; set; } = new List<Producto>();
     public List<PedidoDetalle> lpedidoDetalle { get; set; } = new List<PedidoDetalle>();
     public PedidoDetalle detallePedido = new PedidoDetalle();
     public string MyOption { get; set; }
-    public string descripcion=null;
+    public string descripcion = null;
     public string valor = null;
     public string mensaje = null;
 
 
     protected override async Task OnInitializedAsync()
     {
-        pedido.IDUsuario = 1;
+        data();
         pedido.Fecha = DateTime.Now;
         lproveedor = (await proveedorService.GetAllProveedor()).ToList();
-        lproductos = (await productoService.GetAllProductos()).ToList();
+        lproductos = (await productoService.GetAllProducto()).ToList();
         lpedidoDetalle = (await pedidoDetalleService.GetListaPedidoDetalle(Id)).ToList();
         detallePedido = await pedidoDetalleService.GetDetallePedido(Id);
 
+    }
+
+    protected async void data()
+    {
+        pedido.IDUsuario = Convert.ToInt32(await js.InvokeAsync<string>("localStorage.getItem", "login"));
+        StateHasChanged();
     }
 
     private async void Option(ChangeEventArgs e)
@@ -105,15 +128,22 @@
         descripcion = null;
         valor = null;
 
-        producto = await productoService.GetProductosDetalles(int.Parse(e.Value.ToString()));
+        producto = await productoService.GetProductoDetails(int.Parse(e.Value.ToString()));
 
-        descripcion = producto.nombreproducto;
-        valor = (producto.precio * detalle.cantidad).ToString();
+        descripcion = producto.NombreP;
+        valor = (Convert.ToDecimal(producto.Precio) * detalle.cantidad).ToString();
         detalle.descripcion = descripcion;
         detalle.total = int.Parse(valor);
-        detalle.idproducto = producto.idproducto;
+        detalle.idproducto = producto.IDProducto;
         detalle.idpedido = Id;
 
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async void cant(ChangeEventArgs e)
+    {
+        detalle.cantidad =Convert.ToDecimal(e.Value.ToString());
+        _visible = false;
         await InvokeAsync(StateHasChanged);
     }
 

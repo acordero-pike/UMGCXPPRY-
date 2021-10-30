@@ -27,7 +27,7 @@ namespace cxp.data.Repositories
             return await db.QueryAsync<PedidoRecepcion>(sql.ToString(), new { });
         }
 
-        public async Task<bool> Recibir(int id)
+        public async Task<bool> Recibir(long id)
         {
             var db = DbConnection();
             var sql = @"EXEC recibido @id";

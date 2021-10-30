@@ -25,7 +25,7 @@ namespace cxp.Services
             return _abRepository.Deletepaga(id);
         }
 
-        public Task<IEnumerable<Abonos>> Getall(int id)
+        public Task<IEnumerable<Abonos>> Getall(long id)
         {
             return _abRepository.Getall(id);
         }

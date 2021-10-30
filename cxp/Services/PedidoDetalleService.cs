@@ -1,6 +1,6 @@
 ﻿using cxp.data.Repository;
 using cxp.Data;
-using cxp.Interface;
+using cxp.Interfaces;
 using cxp.Model;
 using System;
 using System.Collections.Generic;
@@ -20,12 +20,12 @@ namespace cxp.Services
             _pedidoDetalleRepository = new PedidoDetalleRepository(configuration.ConnectionString);
         }
 
-        public Task<bool> DeleteDetallePedidoAll(int id)
+        public Task<bool> DeleteDetallePedidoAll(long id)
         {
             return _pedidoDetalleRepository.DeleteDetallePedidoAll(id);
         }
 
-        public Task<bool> DeletePedidoDetalle(int id, int iddetalle)
+        public Task<bool> DeletePedidoDetalle(long id, int iddetalle)
         {
             return _pedidoDetalleRepository.DeletePedidoDetalle(id, iddetalle);
         }
@@ -35,17 +35,17 @@ namespace cxp.Services
             return _pedidoDetalleRepository.GetAllPedidoDetalle();
         }
 
-        public Task<PedidoDetalle> GetDetallePedido(int id)
+        public Task<PedidoDetalle> GetDetallePedido(long id)
         {
             return _pedidoDetalleRepository.GetDetallePedido(id);
         }
 
-        public Task<IEnumerable<PedidoDetalle>> GetListaPedidoDetalle(int id)
+        public Task<IEnumerable<PedidoDetalle>> GetListaPedidoDetalle(long id)
         {
             return _pedidoDetalleRepository.GetListaPedidoDetalle(id);
         }
 
-        public Task<PedidoDetalle> GetPedidoDetalles(int id, int idDetalle)
+        public Task<PedidoDetalle> GetPedidoDetalles(long id, int idDetalle)
         {
             return _pedidoDetalleRepository.GetPedidoDetalles(id, idDetalle);
         }

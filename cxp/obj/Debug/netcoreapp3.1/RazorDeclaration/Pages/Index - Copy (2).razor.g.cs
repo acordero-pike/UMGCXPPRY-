@@ -75,7 +75,7 @@ using cxp.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(Bodega))]
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(BodegaLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/MenuB")]
     public partial class Index___Copy__2_ : Microsoft.AspNetCore.Components.ComponentBase
     {

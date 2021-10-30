@@ -1,8 +1,8 @@
 ﻿@page "/detalleagregarlist"
-@page "/detalleagregarlist/{Id:int}"
-
+@page "/detalleagregarlist/{Id:long}"
+@layout BodegaLayout;
 @using Model
-@using Interface
+@using Interfaces
 
 @inject IPedidoService pedidoService
 @inject IPedidoDetalleService pedidoDetalleService
@@ -20,82 +20,82 @@
 }
 else
 {
-<div class="container">
-    <br>
-    <br>
-    <br>
-    <br>
-    <h1 class="titulo">Detalle Pedido </h1>
-    <br>
-    <br>
-    <table>
-        <tr>
-            <th style="text-align:initial"> <strong>Fecha</strong></th>
-            <td style="text-align:right">@detallePedido.fechaFactura.ToShortDateString()</td>
-        </tr>
-        <tr>
-            <th style="text-align:initial"><strong>No. Factura</strong></th>
-            <td style="text-align:right">@detallePedido.idpedido</td>
-        </tr>
-        <tr>
-            <th style="text-align:initial"><strong>Nombre</strong></th>
-            <td style="text-align:right">@detallePedido.NombreProveedor</td>
-        </tr>
-        <tr>
-            <th style="text-align:initial"><strong>Importe</strong></th>
-            <td style="text-align:right">@detallePedido.totalFactura</td>
-        </tr>
-    </table>
-    <br />
-    <br />
-
-    <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
-        <button type="submit" class="btn" id="agregar" @onclick="agregar">Agregar Pedido</button>
-    </div>
-
-    <div class="table-responsive">
-        <table class="table table-light table-bordered" style="text-align: center;">
-            <thead class="table" style="background-color: #021329; color: white;">
-                <tr>
-                    <th>Cantidad</th>
-                    <th>Id Producto</th>
-                    <th>Nombre Producto</th>
-                    <th>Total</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="lista-equipos" style="background-color: #D8D8D8; color: #000;">
-                @foreach (var pedidoDetalle in lpedidoDetalle)
-                {
-                    <tr>
-                        <td>@pedidoDetalle.cantidad</td>
-                        <td>@pedidoDetalle.idproducto</td>
-                        <td>@pedidoDetalle.NombreProducto</td>
-                        <td>@((double)pedidoDetalle.total)</td>
-                        <td>
-                            <a href="/actualizadetalle/@pedidoDetalle.idpedido/@pedidoDetalle.iddetalle">
-                                <img class="img-margin" src="/img/editar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
-                            </a>
-                            <a> <img @onclick=@(e => dtl( @pedidoDetalle.idpedido,pedidoDetalle.iddetalle)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;"></a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="titulo">Detalle Pedido </h1>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <th style="text-align:initial"> <strong>Fecha:   </strong></th>
+                <td style="text-align:right">@detallePedido.fechaFactura.ToShortDateString()</td>
+            </tr>
+            <tr>
+                <th style="text-align:initial"><strong>No. Factura:   </strong></th>
+                <td style="text-align:right">@detallePedido.idpedido</td>
+            </tr>
+            <tr>
+                <th style="text-align:initial"><strong>Nombre:   </strong></th>
+                <td style="text-align:right">@detallePedido.NombreProveedor</td>
+            </tr>
+            <tr>
+                <th style="text-align:initial"><strong>Importe:   </strong></th>
+                <td style="text-align:right">@detallePedido.totalFactura</td>
+            </tr>
         </table>
+        <br />
+        <br />
+
+        <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
+            <button type="submit" class="btn" id="agregar" @onclick="agregar">Agregar Pedido</button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-light table-bordered" style="text-align: center;">
+                <thead class="table" style="background-color: #021329; color: white;">
+                    <tr>
+                        <th>Cantidad</th>
+                        <th>Id Producto</th>
+                        <th>Nombre Producto</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="lista-equipos" style="background-color: #D8D8D8; color: #000;">
+                    @foreach (var pedidoDetalle in lpedidoDetalle)
+                    {
+                        <tr>
+                            <td>@pedidoDetalle.cantidad</td>
+                            <td>@pedidoDetalle.idproducto</td>
+                            <td>@pedidoDetalle.NombreProducto</td>
+                            <td>@((double)pedidoDetalle.total)</td>
+                            <td>
+                                <a href="/actualizadetalle/@pedidoDetalle.idpedido/@pedidoDetalle.iddetalle">
+                                    <img class="img-margin" src="/img/editar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
+                                </a>
+                                <a> <img @onclick=@(e => dtl( @pedidoDetalle.idpedido,pedidoDetalle.iddetalle)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;"></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 }
 
 
 
 @code {
-    [Parameter] public int Id { get; set; }
+    [Parameter] public long Id { get; set; }
     Pedidos pedido = new Pedidos();
     PedidoDetalle detalle = new PedidoDetalle();
-    Productos producto = new Productos();
-    public List<usuarios> lusuarios { get; set; } = new List<usuarios>();
-    public List<proveedores> lproveedor { get; set; } = new List<proveedores>();
-    public List<Productos> lproductos { get; set; } = new List<Productos>();
+    Producto producto = new Producto();
+    public List<usuario> lusuarios { get; set; } = new List<usuario>();
+    public List<proveedor> lproveedor { get; set; } = new List<proveedor>();
+    public List<Producto> lproductos { get; set; } = new List<Producto>();
     public List<PedidoDetalle> lpedidoDetalle { get; set; } = new List<PedidoDetalle>();
     public PedidoDetalle detallePedido = new PedidoDetalle();
     public string MyOption { get; set; }
@@ -109,7 +109,7 @@ else
         pedido.IDUsuario = 1;
         pedido.Fecha = DateTime.Now;
         lproveedor = (await proveedorService.GetAllProveedor()).ToList();
-        lproductos = (await productoService.GetAllProductos()).ToList();
+        lproductos = (await productoService.GetAllProducto()).ToList();
         lpedidoDetalle = (await pedidoDetalleService.GetListaPedidoDetalle(Id)).ToList();
         detallePedido = await pedidoDetalleService.GetDetallePedido(Id);
 
@@ -120,13 +120,13 @@ else
         descripcion = null;
         valor = null;
 
-        producto = await productoService.GetProductosDetalles(int.Parse(e.Value.ToString()));
+        producto = await productoService.GetProductoDetails(int.Parse(e.Value.ToString()));
 
-        descripcion = producto.nombreproducto;
-        valor = (producto.precio * detalle.cantidad).ToString();
+        descripcion = producto.NombreP;
+        valor = (Convert.ToDecimal(producto.Precio) * detalle.cantidad).ToString();
         detalle.descripcion = descripcion;
         detalle.total = int.Parse(valor);
-        detalle.idproducto = producto.idproducto;
+        detalle.idproducto = producto.IDProducto;
         detalle.idpedido = Id;
 
         await InvokeAsync(StateHasChanged);
@@ -154,14 +154,14 @@ else
         await InvokeAsync(StateHasChanged);
     }
 
-    protected async void dtl(int id, int iddetalle)
+    protected async void dtl(long id, int iddetalle)
     {
 
         var confirmacion = await js.InvokeAsync<bool>("confirmar", "Eliminar", "Seguro que desea Eliminar este Producto del Pedido?", "question");
         if (confirmacion)
         {
 
-            await pedidoDetalleService.DeletePedidoDetalle(id,iddetalle);
+            await pedidoDetalleService.DeletePedidoDetalle(id, iddetalle);
             await pedidoService.UpdateMonto(id);
 
             navigationManager.NavigateTo(navigationManager.Uri, forceLoad: true);

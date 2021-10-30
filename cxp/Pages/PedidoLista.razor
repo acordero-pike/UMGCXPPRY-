@@ -1,7 +1,7 @@
 ﻿@page "/pedidolista"
-
+@layout BodegaLayout;
 @using Model
-@using Interface
+@using Interfaces
 @using System.Linq
 
 @inject IPedidoService pedidoService
@@ -55,7 +55,7 @@ else
                                     <img class="img-margin" src="/img/editar.png" alt="Algoritmos" style="width: 20px; height: 20px;">
                                 </a>
                                 <a> <img @onclick=@(e => dtl( item.NoFactura)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;"></a>
-                                   
+
                             </td>
                         </tr>
                     }
@@ -85,7 +85,7 @@ else
         navigationManager.NavigateTo("/pedidoagregar");
     }
 
-    protected async void dtl(int id)
+    protected async void dtl(long id)
     {
 
         var confirmacion = await js.InvokeAsync<bool>("confirmar", "Eliminar", "Seguro que desea Eliminar el Pedido?", "question");
