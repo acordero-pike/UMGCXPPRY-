@@ -6,7 +6,7 @@ namespace cxp.Model
 {
     public class Pedidopagar
     {
-        public int pedido { get; set; }
+        public long pedido { get; set; }
         public string proveedor { get; set; }
         public float deuda { get; set; }
         public int dias_R { get; set; }

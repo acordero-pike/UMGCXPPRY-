@@ -1,4 +1,4 @@
-﻿@page "/Abono/{Id:int}/{de:float}"
+﻿@page "/Abono/{id:long}/{de:float}"
 @page "/Abono/{Ids:int}"
 @layout Receptor_pagador;
 
@@ -70,7 +70,7 @@
 @code {
 
     [Parameter]
-    public int id { get; set; }
+    public long id { get; set; }
     [Parameter]
     public float de { get; set; }
     [Parameter]
@@ -92,6 +92,11 @@
         else if (abon.Cantidad_cargo_Abono > Convert.ToDecimal(de))
         {
             await js.InvokeVoidAsync("alert", "La cantidad Excede la Deuda , ingrese una cantida igual o menor !"); // Alert
+
+        }
+        else if (abon.Cantidad_cargo_Abono  ==0 || abon.Cantidad_cargo_Abono<0)
+        {
+            await js.InvokeVoidAsync("alert", "La cantidad ingresada es cero o invalida  !"); // Alert
 
         }
         else

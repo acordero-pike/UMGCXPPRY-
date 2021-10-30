@@ -1,0 +1,82 @@
+﻿@page "/pedidoagregar"
+@page "/pedidoagregar/{Id:int}"
+@layout BodegaLayout;
+@using Model
+@using Interfaces
+
+@inject IPedidoService pedidoService
+@inject NavigationManager navigationManager
+@inject IProveedorService proveedorService
+@inject IJSRuntime  js
+@inject FileUtil futil
+
+<link href="/css/add.css" rel="stylesheet" />
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="titulo">Agregar Pedido</h1>
+    <br>
+    <br>
+
+
+    <EditForm Model="@pedido">
+       
+        <div class="input-group mb-3">
+            <input type="date" @bind="pedido.Fecha" class="form-control" id="Fecha" aria-describedby="inputGroup-sizing-default" placeholder="Fecha de Factura" required>
+        </div>
+        <div class="input-group mb-3">
+            <input type="number" @bind="pedido.IDUsuario" class="form-control" id="IDUsuario" aria-describedby="inputGroup-sizing-default" placeholder="Usuario" required hidden>
+        </div>
+        <div class="input-group mb-3">
+            <select @bind="pedido.IDProveedor" class="form-control" id="IDProveedor" aria-describedby="inputGroup-sizing-default" placeholder="Proveedor" required>
+                @if (pedido?.IDProveedor != null)
+                {
+                    <option value="">Seleccione Proveedor</option>
+                    @foreach (var item in lproveedor)
+                    {
+                        <option value="@item.ID_Proveedor.ToString()">@item.Nombre</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="alert alert-danger" id="alert" role="alert" style="display: none;">
+            Todos los campos son necesarios!
+        </div>
+
+        <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
+            <button type="submit" class="btn" id="agregar" @onclick="Guardar">Agregar Detalle</button>
+        </div>
+    </EditForm>
+</div>
+@code {
+    [Parameter] public int Id { get; set; }
+    Pedidos pedido = new Pedidos();
+    public List<usuario> lusuarios { get; set; } = new List<usuario>();
+    public List<proveedor> lproveedor { get; set; } = new List<proveedor>();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        pedido.Fecha = DateTime.Now;
+        lproveedor = (await proveedorService.GetAllProveedor()).ToList();
+        data();
+
+
+    }
+
+    protected async void data ()
+    {
+        pedido.IDUsuario = Convert.ToInt32(await js.InvokeAsync<string>("localStorage.getItem", "login"));
+        StateHasChanged();
+    }
+
+
+    protected async Task Guardar()
+    {
+        pedido.NoFactura = Convert.ToInt64(pedido.Fecha.Day.ToString() + pedido.Fecha.Month.ToString() + pedido.Fecha.Year.ToString() + pedido.Fecha.TimeOfDay.Minutes.ToString() + pedido.Fecha.TimeOfDay.Seconds.ToString());
+        await pedidoService.InsertPedido(pedido);
+        navigationManager.NavigateTo("/detalleagregar/" + pedido.NoFactura);
+    }
+}

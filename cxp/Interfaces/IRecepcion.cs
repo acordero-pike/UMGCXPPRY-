@@ -9,6 +9,6 @@ namespace cxp.Interfaces
    public interface IRecepcion
     {
         Task<IEnumerable<PedidoRecepcion>> GetAll();
-        Task<bool> Recibir(int id);
+        Task<bool> Recibir(long id);
     }
 }

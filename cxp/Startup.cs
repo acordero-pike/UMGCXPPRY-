@@ -37,7 +37,11 @@ namespace cxp
             services.AddScoped<IProductoService, ProductoService>();
             services.AddScoped<ITipoProductoService, TipoProductoService>();
 
-            
+            services.AddScoped<IPedidoService, PedidoService>();
+
+            services.AddScoped<IPedidoDetalleService, PedidoDetalleService>();
+
+            services.AddScoped<FileUtil>();
             services.AddScoped<IProveedorService, ProveedorService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
 
@@ -86,4 +90,4 @@ namespace cxp
         }
     }
 }
-
+ 

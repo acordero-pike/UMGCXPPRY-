@@ -7,7 +7,7 @@ namespace cxp.Model
    public class Abonos
     {
        
-        public int No_Factura { get; set; }
+        public long No_Factura { get; set; }
 
         public decimal Cantidad_cargo_Abono { get; set; }
 

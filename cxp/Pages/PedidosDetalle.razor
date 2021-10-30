@@ -1,0 +1,140 @@
+﻿@page "/detalleadd"
+@page "/detalleadd/{Id:int}"
+@layout BodegaLayout;
+@using Model
+@using Interfaces
+
+@inject IPedidoService pedidoService
+@inject IPedidoDetalleService pedidoDetalleService
+@inject NavigationManager navigationManager
+@inject IProveedorService proveedorService
+@inject IProductoService productoService
+@inject IJSRuntime  js
+@inject FileUtil futil
+
+
+<link href="/css/add.css" rel="stylesheet" />
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="titulo">Agregar Detalle Pedido </h1>
+    <br>
+    <br>
+
+    @if (detallePedido == null)
+    {
+
+    }
+    else
+    {
+        @*<div class="input-group mb-3">
+                <span class="input-group-addon">Cantidad de Abono </span>
+                <input type="number" class="form-control" id="abono" @bind="abon.Cantidad_cargo_Abono" aria-describedby="inputGroup-sizing-default" placeholder="Cantidad a Abonar" max="@de" required>
+            </div>
+
+            <tr>
+                <td align="left"># Factura </td>
+                <td align="left">@detallePedido.idpedido</td>
+            </tr>
+            <tr>
+                <td align="left">Fecha </td>
+                <td align="left">@detallePedido.fechaFactura</td>
+            </tr>
+            <tr>
+                <td align="left">Proveedor </td>
+                <td>@detallePedido.proveedor</td>
+            </tr>
+            <tr>
+                <td align="right">Total </td>
+                <td align="right">@detallePedido.totalFactura</td>
+            </tr>*@
+    }
+
+    <EditForm Model="@detalle">
+        <div class="input-group mb-3">
+            <span class="input-group-addon">Cantidad </span>
+            <input type="number" @bind="detalle.cantidad" class="form-control" id="cantidad" aria-describedby="inputGroup-sizing-default" placeholder="Cantidad" required>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-addon">Producto </span>
+            <select @onchange="Option" class="form-control" id="IdProducto" aria-describedby="inputGroup-sizing-default" placeholder="Producto" required>
+                @if (detalle?.idproducto != null)
+                {
+                    <option value="">Seleccione Producto</option>
+                    @foreach (var item in lproductos)
+                    {
+                        <option value="@item.IDProducto">@item.NombreP</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-addon">Sub-Total </span>
+            <input type="number" @bind="@detalle.total" placeholder="Valor" readonly />
+        </div>
+        <div class="alert alert-danger" id="alert" role="alert" style="display: none;">
+            Todos los campos son necesarios!
+        </div>
+
+        <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
+            <button type="button" class="btn" id="agregar" onclick="validar();">Agregar Detalle</button>
+        </div>
+    </EditForm>
+
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    Pedidos pedido = new Pedidos();
+    PedidoDetalle detalle = new PedidoDetalle();
+    Producto producto = new Producto();
+    public List<usuario> lusuarios { get; set; } = new List<usuario>();
+    public List<proveedor> lproveedor { get; set; } = new List<proveedor>();
+    public List<Producto> lproductos { get; set; } = new List<Producto>();
+    public List<PedidoDetalle> lpedidoDetalle { get; set; } = new List<PedidoDetalle>();
+    public PedidoDetalle detallePedido = new PedidoDetalle();
+    public string MyOption { get; set; }
+    public string descripcion = null;
+    public string valor = null;
+    public string mensaje = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        pedido.IDUsuario = 1;
+        pedido.Fecha = DateTime.Now;
+        lproveedor = (await proveedorService.GetAllProveedor()).ToList();
+        lproductos = (await productoService.GetAllProducto()).ToList();
+        lpedidoDetalle = (await pedidoDetalleService.GetListaPedidoDetalle(Id)).ToList();
+        detallePedido = await pedidoDetalleService.GetDetallePedido(Id);
+
+    }
+
+    private async void Option(ChangeEventArgs e)
+    {
+        descripcion = null;
+        valor = null;
+
+        producto = await productoService.GetProductoDetails(int.Parse(e.Value.ToString()));
+
+        descripcion = producto.NombreP;
+        valor = (Convert.ToDecimal(producto.Precio) * detalle.cantidad).ToString();
+        detalle.descripcion = descripcion;
+        detalle.total = int.Parse(valor);
+
+        //mensaje = "Se agrego el Producto " + producto.nombreproducto + " al pedido por un total de : " + detalle.total ;
+        //await futil.Mensaje("confirmacion", mensaje, MsjSweet.success);
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+
+    protected async Task Guardar()
+    {
+        Console.WriteLine("proveedor " + pedido.IDProveedor);
+        //await pedidoService.InsertPedido(pedido);
+
+    }
+}

@@ -1,0 +1,166 @@
+﻿@page "/detalleagregar"
+@page "/detalleagregar/{Id:long}"
+@layout BodegaLayout;
+@using Model
+@using Interfaces
+
+@inject IPedidoService pedidoService
+@inject IPedidoDetalleService pedidoDetalleService
+@inject NavigationManager navigationManager
+@inject IProveedorService proveedorService
+@inject IProductoService productoService
+@inject IJSRuntime  js
+@inject FileUtil futil
+
+
+<link href="/css/add.css" rel="stylesheet" />
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="titulo">Agregar Detalle Pedido </h1>
+    <br>
+    <br>
+
+    <table>
+        <tr>
+            <th style="text-align:initial"> <strong>Fecha:  </strong></th>
+            <td style="text-align:right">@detallePedido.fechaFactura.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <th style="text-align:initial"><strong>No. Factura:  </strong></th>
+            <td style="text-align:right">@detallePedido.idpedido</td>
+        </tr>
+        <tr>
+            <th style="text-align:initial"><strong>Nombre:  </strong></th>
+            <td style="text-align:right">@detallePedido.NombreProveedor</td>
+        </tr>
+    </table>
+    <br />
+    <br />
+
+    <EditForm Model="@detalle">
+        <div class="input-group mb-3">
+            <span class="input-group-addon">Cantidad </span>
+            <input type="number"   @onchange="cant" class="form-control" id="cantidad" aria-describedby="inputGroup-sizing-default" placeholder="Cantidad"   required>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-addon">Producto </span>
+            @if (_visible)
+            {
+                <select @onchange="Option" class="form-control" id="IdProducto" aria-describedby="inputGroup-sizing-default" placeholder="Producto" required hidden>
+                    @if (detalle?.idproducto != null)
+                    {
+                        <option value="">Seleccione Producto</option>
+                        @foreach (var item in lproductos)
+                        {
+                            <option value="@item.IDProducto">@item.NombreP</option>
+                        }
+                    }
+                </select>
+            }
+            else
+            {
+                <select @onchange="Option" class="form-control" id="IdProducto" aria-describedby="inputGroup-sizing-default" placeholder="Producto" required>
+                    @if (detalle?.idproducto != null)
+                    {
+                        <option value="">Seleccione Producto</option>
+                        @foreach (var item in lproductos)
+                        {
+                            <option value="@item.IDProducto">@item.NombreP</option>
+                        }
+                    }
+                </select>
+            }
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-addon">Sub-Total </span>
+            <input type="number" @bind="@detalle.total" placeholder="Valor" readonly />
+        </div>
+        <div class="alert alert-danger" id="alert" role="alert" style="display: none;">
+            Todos los campos son necesarios!
+        </div>
+
+        <div style="text-align: center; margin-left: auto; margin-right: auto;  padding-top: 25px;">
+            <button type="button" class="btn" id="agregar" @onclick="Guardar">Agregar Producto</button>
+        </div>
+    </EditForm>
+
+</div>
+
+@code {
+    private bool _visible =true;
+    [Parameter] public long Id { get; set; }
+    Pedidos pedido = new Pedidos();
+    PedidoDetalle detalle = new PedidoDetalle();
+    Producto producto = new Producto();
+    public List<usuario> lusuarios { get; set; } = new List<usuario>();
+    public List<proveedor> lproveedor { get; set; } = new List<proveedor>();
+    public List<Producto> lproductos { get; set; } = new List<Producto>();
+    public List<PedidoDetalle> lpedidoDetalle { get; set; } = new List<PedidoDetalle>();
+    public PedidoDetalle detallePedido = new PedidoDetalle();
+    public string MyOption { get; set; }
+    public string descripcion = null;
+    public string valor = null;
+    public string mensaje = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        data();
+        pedido.Fecha = DateTime.Now;
+        lproveedor = (await proveedorService.GetAllProveedor()).ToList();
+        lproductos = (await productoService.GetAllProducto()).ToList();
+        lpedidoDetalle = (await pedidoDetalleService.GetListaPedidoDetalle(Id)).ToList();
+        detallePedido = await pedidoDetalleService.GetDetallePedido(Id);
+
+    }
+
+    protected async void data()
+    {
+        pedido.IDUsuario = Convert.ToInt32(await js.InvokeAsync<string>("localStorage.getItem", "login"));
+        StateHasChanged();
+    }
+
+    private async void Option(ChangeEventArgs e)
+    {
+        descripcion = null;
+        valor = null;
+
+        producto = await productoService.GetProductoDetails(int.Parse(e.Value.ToString()));
+
+        descripcion = producto.NombreP;
+        valor = (Convert.ToDecimal(producto.Precio) * detalle.cantidad).ToString();
+        detalle.descripcion = descripcion;
+        detalle.total = int.Parse(valor);
+        detalle.idproducto = producto.IDProducto;
+        detalle.idpedido = Id;
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async void cant(ChangeEventArgs e)
+    {
+        detalle.cantidad =Convert.ToDecimal(e.Value.ToString());
+        _visible = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+
+    protected async Task Guardar()
+    {
+        Console.WriteLine("proveedor " + pedido.IDProveedor);
+        var confirmacion = await js.InvokeAsync<bool>("confirmar",
+                "Desea agregar otro producto?", "", "Si", "No", "question");
+
+        await pedidoDetalleService.InsertPedidoDetalle(detalle);
+        await pedidoService.UpdateMonto(Id);
+        navigationManager.NavigateTo("/detalleagregarlist/" + Id);
+        await InvokeAsync(StateHasChanged);
+
+        //await futil.Mensaje("confirmacion", mensaje, MsjSweet.success);
+        //await pedidoService.InsertPedido(pedido);
+        await InvokeAsync(StateHasChanged);
+    }
+}

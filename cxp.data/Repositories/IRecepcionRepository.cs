@@ -9,6 +9,6 @@ namespace cxp.data.Repositories
    public interface IRecepcionRepository
     {
         Task<IEnumerable<PedidoRecepcion>> GetAll();
-        Task<bool> Recibir(int id);
+        Task<bool> Recibir(long id);
     }
 }

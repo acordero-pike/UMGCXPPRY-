@@ -1,4 +1,4 @@
-﻿@page "/ListaPagos/{Id:int}"
+﻿@page "/ListaPagos/{Id:long}"
 @layout Receptor_pagador;
 
 @using Model
@@ -59,8 +59,8 @@
                             <td>@ps.No_Boleta</td>
 
                             <td>
-                                <a href="/Abono/@ps.ID_Cargo_Abono"><button style="background-color: #147BC6; width: 50%;">Editar</button></a>
-                                <button style="background-color: #147BC6; width: 50%;" @onclick=@(e => dtl( ps.ID_Cargo_Abono))>Eliminar</button>
+                                <a href="/Abono/@ps.ID_Cargo_Abono"> <img class="img-margin" src="/img/editar.png" alt="Algoritmos" style="width: 20px; height: 20px;"></a>
+                                <a><img @onclick=@(e => dtl( ps.ID_Cargo_Abono)) class="img-margin" src="/img/eliminar.png" alt="Algoritmos" style="width: 20px; height: 20px;"></a>
 
 
                             </td>
@@ -74,7 +74,7 @@
 
 @code {
     [Parameter]
-    public int Id { get; set; }
+    public long Id { get; set; }
     [Parameter]
     public float deuda { get; set; }
     private IEnumerable<Model.Abonos> PPS;
